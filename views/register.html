@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <style type="text/css"></style>
+    <script type="text/javascript"></script>
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <title>Catálogo de Filmes</title>
+</head>
+<body>
+    <div id="nav-placeholder">
+    </div>    
+    <script>
+    $(function(){
+      $("#nav-placeholder").load("navbar.html");
+    });
+    </script>  
+                  
+    <div class="form">        
+        <form action="/admin/novo-filme" method="POST">
+            <label for="name">Nome do Filme: </label>
+                <input type="text" id="name" placeholder="Nome do Filme" required></br></br>
+            
+            <label for="category">Categoria: </label>
+                <input type="text" id="category" placeholder="Categoria" required></br></br>
+            
+            <label for="releaseDate">Lançamento: </label>
+                <input type="month" id="releaseDate" required></br></br>
+            
+            <label for="producer">Produtora: </label>
+                <input type="text" id="producer" placeholder="Produtora" required></br></br>
+
+            <label for="director">Diretor: </label>
+                <input type="text" id="director" placeholder="Diretor" required></br></br>
+
+            <label for="cast">Elenco: </label>
+                <input type="text" id="cast" placeholder="Elenco" required></br></br>
+
+            <label for="duration">Duração (minutos): </label>
+                <input type="number" id="duration" placeholder="Duração" required></br></br>                
+
+            <label for="trailer">Link Trailer: </label>
+                <input type="text" id="trailer" required></br></br>
+
+            <label for="synopsis">Sinopse: </label>
+                <textarea id="synopsis" class="text" required rows="15" placeholder="Sinopse..."></textarea></br></br>  
+            
+            <button type="submit" class="button">Cadastrar</button>          
+        </form>                        
+    </div>    
+</body>
