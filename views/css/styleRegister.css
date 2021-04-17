@@ -1,0 +1,116 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+body{
+	background: #111A23;
+	overflow-x:hidden;    
+}
+
+.center{
+	max-width: 1480px;
+	margin: 0 auto;
+	padding: 0 2%;
+}
+
+.clear{clear: both;}
+
+
+header{
+	background: #2A4158;
+	padding: 25px 0;
+}
+
+/*
+	Menu 1 - Header
+*/
+
+.header-left{
+	float: left;
+}
+
+.menu-header{
+	position: fixed;
+	top:-10px;
+	display: inline-block;
+	margin-left: 30px;
+}
+
+.menu-header ul{
+    position: fixed;
+    list-style-type: none;
+    top: 13px;
+    left: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-header li{
+	font-size: 14px;
+	display: inline-block;
+	margin-right: 15px;
+}
+
+.menu-header li a:hover {
+    background-color: #415164;
+}
+
+.menu-header a{
+	color: white;
+	text-decoration: none;
+    padding: 18px 20px;    
+    text-align: center;
+    font-size: 20px;
+}
+
+/**/
+
+.header-right{
+	margin-top:10px;
+	float: right;
+}
+
+.search{
+	display: inline-block;
+}
+
+body section{
+    margin: 20px 20px 20px 20px;
+}
+
+input[type=text], select, textarea, input[type=month], input[type=number], input[type=date]{
+    width: 100%;
+    padding: 10px 20px;
+    border: 2px solid #ccc;
+    margin: 8px 0;
+    box-sizing: border-box;    
+    border-radius: 8px;
+    background-color: #C8D9E8;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+label {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 15px;
+  color: azure;  
+}
+
+input[type=file]{
+    width: 100%;
+    font-size: 16px;
+    margin: 8px;
+    box-sizing: border-box;    
+    border-radius: 8px;
+}
+
+button {
+    width: 25%;
+    font-size: 16px;
+    margin: 8px;
+    box-sizing: border-box;    
+    border-radius: 8px;
+}
