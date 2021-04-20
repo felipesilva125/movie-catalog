@@ -24,23 +24,22 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/views'));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname+'/views/index.html'));
+    res.sendFile(path.join(__dirname+'/views/front/home/home.html'));
 });
 
 app.get('/cadastro', (req, res) => {
-    res.sendFile(path.join(__dirname+'/views/register.html'));
+    res.sendFile(path.join(__dirname+'/views/front/register/movie-register/register.html'));
 });
 
 app.get('/login', (req, res) => {    
-    res.sendFile(path.join(__dirname+'/views/login.html'));
+    res.sendFile(path.join(__dirname+'/views/front/login.html'));
 });
 
 app.get('/cadastro-usuario', (req, res) => {
-    res.sendFile(path.join(__dirname+'/views/user-register.html'));
+    res.sendFile(path.join(__dirname+'/views/front/register/user-register/user-register.html'));
 });
 
-app.post('/admin/novo-filme', (req, res) => {          
-
+app.post('/admin/novo-filme', (req, res) => {
     const formidable = require('formidable');
     const fs = require('fs');
     const form = new formidable.IncomingForm();
@@ -91,7 +90,7 @@ app.post('/admin/novo-filme', (req, res) => {
 });
 
 app.get('/not-found', (req, res) => {
-    res.sendFile(path.join(__dirname+'/views/error-page.html'));
+    res.sendFile(path.join(__dirname+'/views/front/error-page.html'));
 });
 
 app.use(function (req, res, next) {

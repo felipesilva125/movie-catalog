@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Catálogo de Filmes</title>
+    <meta charset="UTF-8">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link href="css/style-menu.css" rel="stylesheet" type="text/css">
+    <link href="css/style-movie-register.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+    <header>
+        <div class="center">
+            <div class="header-left">
+                <div class="menu-header">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <!-- <li><a href="/login">Login</a></li> -->
+                        <li><a href="/cadastro">Cadastrar Filme</a></li>
+                        <!-- <li><a href="/cadastro-usuario">Cadastrar Usuário</a></li> -->
+                    </ul>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="search">
+                    <!--Criar campo de busca-->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="form">
+        <div class="form-div">
+            <form action="/admin/novo-filme" method="POST" enctype="multipart/form-data">
+
+                <div>
+                    <label for="name">Nome do Filme: </label>
+                    <input type="text" name="name" placeholder="Nome do Filme" required></br></br>
+                </div>
+
+                <div>
+                    <label for="category">Categoria: </label>
+                    <input type="text" name="category" placeholder="Categoria" required></br></br>
+                </div>
+
+                <div>
+                    <label for="releaseDate">Lançamento: </label>
+                    <input type="month" name="releaseDate" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" /></br></br>
+                </div>
+
+                <div>
+                    <label for="producer">Produtora: </label>
+                    <input type="text" name="producer" placeholder="Produtora" required></br></br>
+                </div>
+
+                <div>
+                    <label for="director">Diretor: </label>
+                    <input type="text" name="director" placeholder="Diretor" required></br></br>
+                </div>
+
+                <div>
+                    <label for="cast">Elenco: </label>
+                    <input type="text" name="cast" placeholder="Elenco" required></br></br>
+                </div>
+
+                <div>
+                    <label for="duration">Duração (minutos): </label>
+                    <input type="number" name="duration" placeholder="Duração" required></br></br>
+                </div>
+
+                <div>
+                    <label for="trailer">Link Trailer: </label>
+                    <input type="text" name="trailer" placeholder="Link Trailler" required></br></br>
+                </div>
+
+                <div class="input-wrapper">
+                    <h1>
+                        Enviar Imagem: </br></br>
+                        <label for="image">Carregar imagem </label>
+                        <input type="file" id="image" name="image" required></br></br>
+                    </h1></br>
+                </div>
+
+                <div>
+                    <label for="synopsis">Sinopse: </label>
+                    <textarea name="synopsis" class="text" required rows="15"
+                        placeholder="Sinopse..."></textarea></br></br>
+                </div>
+
+                <div class="button-submit">
+                    <input type="submit" value="Cadastrar"></input>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+</body>
+
+</html>

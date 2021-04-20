@@ -1,0 +1,67 @@
+section.form{
+    margin: 20px 20px 20px 20px;
+}
+
+.form-div{
+    margin: 60px 60px 60px 60px;
+}
+
+input[type=text], textarea, input[type=month], input[type=number]{
+    width: 100%;
+    padding: 10px 20px;
+    border: 2px solid #ccc;
+    margin: 8px 0;
+    box-sizing: border-box;    
+    border-radius: 8px;
+    background-color: #C8D9E8;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+label {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 15px;
+    color: azure;  
+}
+
+
+input[type=file] {
+    display: none;
+}
+  
+.input-wrapper label {
+    padding: 10px 20px;
+    background-color: #465E73;
+    box-sizing: border-box;    
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 100px;
+
+}
+
+.input-wrapper h1{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 16px;
+    color: azure;  
+}
+
+.input-wrapper label:hover {
+    background-color: #274659;
+}
+
+.button-submit input {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #465E73;
+    box-sizing: border-box;   
+    border-radius: 8px;
+    cursor: pointer;
+    color: azure;
+    border:#465E73;
+    font-size: 15px;
+}
+
+.button-submit input:hover {
+    background-color: #274659;
+    color: azure;
+}
