@@ -28,7 +28,6 @@ body{
 	position: fixed;
 	top:-10px;
 	display: inline-block;
-	margin-left: 30px;
 }
 
 .menu-header ul{
@@ -43,7 +42,8 @@ body{
 .menu-header li{
 	font-size: 14px;
 	display: inline-block;	
-    margin-left: 48px;
+    margin-left: 280px;
+    margin-right: -250px;
 }
 
 .menu-header li a:hover {

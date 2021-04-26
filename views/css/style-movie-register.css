@@ -3,7 +3,7 @@ section.form{
 }
 
 .form-div{
-    margin: 60px 60px 60px 60px;
+    margin: 80px 350px 60px 350px;
 }
 
 input[type=text], textarea, input[type=month], input[type=number]{
@@ -23,7 +23,6 @@ label {
     font-size: 15px;
     color: azure;  
 }
-
 
 input[type=file] {
     display: none;
