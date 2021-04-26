@@ -6,10 +6,69 @@
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
         <link href="css/style-menu.css" rel="stylesheet" type="text/css">
         <link href="css/style-home.css" rel="stylesheet" type="text/css">
+
+        <script type="text/javascript">
+        
+            function showMovieInfo(){
+                var xhr = new XMLHttpRequest();                         
+                xhr.open('GET', 'http://localhost:8082/filme');
+                xhr.send();
+            }
+
+            function getMovies() {
+
+                var xhr = new XMLHttpRequest();                         
+                xhr.open('GET', 'http://localhost:8082/busca-filmes');                
+
+                xhr.onreadystatechange = () => {
+                    if(xhr.readyState == 4) {                        
+                        if(xhr.status == 200) {                            
+                            var movies = JSON.parse(xhr.response);                                                       
+                            showMovies(movies);
+                        }
+                    }
+                };                
+
+                xhr.send();
+            }
+
+            function showMovies(movies) {                                
+                movies.forEach(movie => {                                        
+                    var gridItem = document.createElement("div");
+                    gridItem.setAttribute("class", "item-gallery")
+
+                    var link = document.createElement("a");
+                    link.setAttribute("href", `/filme/${movie._id}`);
+                    
+                    var img = createImage(movie.ImagePath);
+                    var span = document.createElement("span");
+                    span.setAttribute("class", "title-gallery")
+                    span.innerHTML = movie.Name;
+
+                    link.appendChild(img);                    
+                    link.appendChild(span);
+                    gridItem.appendChild(link);
+                    container.appendChild(gridItem);
+                });                
+            }
+
+            function createImage(imagePath){
+                var img = document.createElement("img");
+                
+                var path = "./" + imagePath.substring(imagePath.indexOf("images"), imagePath.length);                
+                path = path.replace(/\\/g, "/");                
+
+                img.setAttribute("src", path);
+                img.setAttribute("class", "img-gallery");
+                img.setAttribute("alt", "");
+
+                return img;
+            }
+        </script>
+
     </head>
 
-    <body>
-
+    <body onload="getMovies()">
         <header>
             <div class="center">
                 <div class="header-left">
@@ -31,8 +90,7 @@
             </div>
         </header>
 
-        <section class="destaque"> 
-            
+        <section class="destaque">             
             <iframe class="video-destaque" src="https://www.youtube.com/embed/4QRdB4RAQMs?autoplay=1&mute=1&playlist=4QRdB4RAQMs&loop=1&controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
             </iframe>
 
@@ -44,157 +102,11 @@
                 <p>Aqui vai a descrição completa do filme.</p>
             </div>
 
+        </section>        
+
+        <section class="movie-grid"> 
+            <div class="container-gallery" id="container">
+            </div>                
         </section>
-
-        <section class="vitrine">
-            
-            <!-- <div class="vitrine-title">
-                <h3>Ação</h3>    
-            </div> -->
-
-            <div class="vitrine-flex">
-                
-                <div class="vitrine-single-banner"> 
-                                      
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-            </div>
-
-        </section>
-
-        <section class="vitrine">
-            
-            <div class="vitrine-flex">
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-            </div>
-            
-        </section>
-
-        <section class="vitrine">
-            
-            <div class="vitrine-flex">
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-            </div>
-            
-        </section>
-
-        <section class="vitrine">
-            
-            <div class="vitrine-flex">
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-                <div class="vitrine-single-banner">
-                    <div class="vitrine-wraper" style="background-image: url('images/velozesfuriosos.jpeg');"></div>
-                </div>
-            </div>
-            
-        </section>
-
-        <script src="script/jquery.js"></script>
-	    <script src="script/slick.min.js"></script>
-
-        <script>
-        $('.vitrine-flex').slick({
-            dots: false,
-            arrows:false,
-            infinite: false,
-            centerMode: false,
-            speed:1000,
-            slidesToShow: 6,
-            autoplay: true,
-            autoplaySpeed: 3000,
-            pauseOnHover:false,
-            responsive: [
-                {
-                    breakpoint: 768,
-                    settings: {
-                    slidesToShow: 3
-                    }
-                }]
-        });
-    
-        $('.vitrine-wraper').hover(function(){
-            $(this).css('z-index','1000');
-        })
-    
-        $('.vitrine-wraper').mouseout(function(){
-            $(this).css('z-index','0');
-        })
-        </script>
-
     </body>
 </html>

@@ -39,51 +39,67 @@ app.get('/cadastro-usuario', (req, res) => {
     res.sendFile(path.join(__dirname+'/views/front/register/user-register/user-register.html'));
 });
 
-app.post('/admin/novo-filme', (req, res) => {
+app.post('/cadastro/valida-form', (req, res) => {       
+    Movie.findOne({Name: req.body.name}).lean().then((movie) => 
+    {        
+        if (movie) {                    
+            res.writeHead(500, {'Content-Type': 'text/html'});
+            res.end();
+        }
+        else {
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.end();
+        }
+    });
+});
+
+app.post('/teste', (req, res) => {
+    console.log('entrou no teste');
+    res.redirect("/cadastro");
+});
+
+app.get('/busca-filmes', (req, res) => {
+    Movie.find().lean().then((movies) => {
+        if (movies){
+            res.json(movies);
+            res.end();
+        }
+    });    
+});
+
+app.get('/filme/:id', (req, res) => {
+    console.log(req.params.id);
+    res.sendFile(path.join(__dirname+'/views/front/movie/movie.html'))
+});
+
+app.post('/novo-filme', (req, res) => {
     const formidable = require('formidable');
     const fs = require('fs');
     const form = new formidable.IncomingForm();
-    form.parse(req, (err, fields, files) => {        
+    form.parse(req, (err, fields, files) => {                
 
-        Movie.findOne({Name : fields.name}).lean().then((movie) => {
-            if (movie) {
-                //gera mensagem de erro para o front
-                console.log('ja tem')
-            }
-            else {
+        var oldPath = files.image.path;                
+        var extension = path.extname(files.image.name);
+        var newPath = path.join(__dirname,'/images/', fields.name + extension);
 
-                var oldPath = files.image.path;                
-                var extension = path.extname(files.image.name);
-                var newPath = path.join(__dirname,'/images/', fields.name + extension);
-
-                console.log(oldPath);
-                console.log(extension);
-                console.log(newPath);
-
-                var newMovie = new Movie({
-                    Name: fields.name,                   
-                    Category: fields.category,
-                    ReleaseDate: fields.releaseDate,
-                    Producer: fields.producer,
-                    Director: fields.director,
-                    Cast: fields.cast,
-                    Duration: fields.duration,
-                    Trailer: fields.trailer,
-                    Synopsis: fields.synopsis,
-                    ImagePath: newPath
-                });
-
-                newMovie.save().then(() => {
-                    //gera mensagem de sucesso para o front
-                    console.log('salvou')
-                    fs.renameSync(oldPath, newPath);
-
-                }).catch((error) => {
-                    //gera mensagem de erro para o front
-                    console.log('deu erro')
-                });
-            }
+        var newMovie = new Movie({
+            Name: fields.name,                   
+            Category: fields.category,
+            ReleaseDate: fields.releaseDate,
+            Producer: fields.producer,
+            Director: fields.director,
+            Cast: fields.cast.split(';'),
+            Duration: fields.duration,
+            Trailer: fields.trailer,
+            Synopsis: fields.synopsis,
+            ImagePath: newPath
         });
+
+        newMovie.save().then(() => {            
+            fs.renameSync(oldPath, newPath);
+        }).catch((error) => {            
+            console.log(error);
+        });                    
     });
 
     res.redirect('/cadastro');

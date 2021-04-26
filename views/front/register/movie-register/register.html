@@ -6,7 +6,38 @@
     <meta charset="UTF-8">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link href="css/style-menu.css" rel="stylesheet" type="text/css">
-    <link href="css/style-movie-register.css" rel="stylesheet" type="text/css">
+    <link href="css/style-movie-register.css" rel="stylesheet" type="text/css"> 
+    
+    <script>
+        function validateForm() {
+            
+            var xhr = new XMLHttpRequest();
+            var movieName = document.getElementById("movieName").value;            
+            xhr.open('POST', 'http://localhost:8082/cadastro/valida-form');
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            const json = {
+                name: movieName
+            };
+            
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState == 4) {
+                    if(xhr.status == 200) {                        
+                        alert("Filme salvo com sucesso!")
+                        document.getElementById("registerForm").submit();
+                    }                    
+                    else if (xhr.status == 500)
+                    {
+                        alert("Filme ja existe!");
+                    }
+                }                
+            };
+            
+            xhr.send(JSON.stringify(json));
+            console.log(result);            
+        }        
+    </script>
+
 </head>
 
 <body>
@@ -34,11 +65,11 @@
 
     <section class="form">
         <div class="form-div">
-            <form action="/admin/novo-filme" method="POST" enctype="multipart/form-data">
+            <form id="registerForm" action="/novo-filme" method="POST" enctype="multipart/form-data">
 
                 <div>
                     <label for="name">Nome do Filme: </label>
-                    <input type="text" name="name" placeholder="Nome do Filme" required></br></br>
+                    <input type="text" name="name" id="movieName" placeholder="Nome do Filme" required></br></br>
                 </div>
 
                 <div>
@@ -91,13 +122,11 @@
                 </div>
 
                 <div class="button-submit">
-                    <input type="submit" value="Cadastrar"></input>
+                    <input type="button" value="Cadastrar" onclick="validateForm()"></input>
                 </div>
-
             </form>
         </div>
-    </section>
-
+    </section>    
 </body>
 
 </html>
