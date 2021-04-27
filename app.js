@@ -5,6 +5,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 require('./model/Movie')
 const Movie = mongoose.model("Movies");
+const cookieParser = require('cookie-parser');
+const fs = require('fs')
 
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost/movie-catalog", {
@@ -22,6 +24,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/views'));
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname+'/views/front/home/home.html'));
@@ -67,9 +70,20 @@ app.get('/busca-filmes', (req, res) => {
     });    
 });
 
-app.get('/filme/:id', (req, res) => {
-    console.log(req.params.id);
-    res.sendFile(path.join(__dirname+'/views/front/movie/movie.html'))
+app.get('/filme/:id', (req, res) => {                                                   
+    Movie.findById(req.params.id).lean().then((movie) => {
+        res.writeHead(200, {
+                'Content-Type': 'text/html',
+                'movie': JSON.stringify(movie)
+            });        
+        res.end(fs.readFileSync(__dirname+'/views/front/movie/movie.html'));        
+    }).catch((err) => {
+        res.writeHead(500, {
+            'Content-Type': 'text/html',
+            'error': err
+        });
+        res.end(fs.readFileSync(__dirname+'/views/front/movie/movie.html'));        
+    });
 });
 
 app.post('/novo-filme', (req, res) => {

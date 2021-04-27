@@ -3,11 +3,9 @@
 
 <head>
     <title>Catálogo de Filmes</title>
-    <meta charset="UTF-8">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <meta charset="UTF-8">    
     <link href="css/style-menu.css" rel="stylesheet" type="text/css">
-    <link href="css/style-movie-register.css" rel="stylesheet" type="text/css"> 
-    
+    <link href="css/style-movie-register.css" rel="stylesheet" type="text/css">     
     <script>
         function validateForm() {
             
@@ -26,10 +24,8 @@
                         alert("Filme salvo com sucesso!")
                         document.getElementById("registerForm").submit();
                     }                    
-                    else if (xhr.status == 500)
-                    {
-                        alert("Filme ja existe!");
-                    }
+                    else if (xhr.status == 500)                    
+                        alert("Filme ja existe!");                    
                 }                
             };
             
@@ -37,11 +33,9 @@
             console.log(result);            
         }        
     </script>
-
 </head>
 
 <body>
-
     <header>
         <div class="center">
             <div class="header-left">
@@ -66,7 +60,6 @@
     <section class="form">
         <div class="form-div">
             <form id="registerForm" action="/novo-filme" method="POST" enctype="multipart/form-data">
-
                 <div>
                     <label for="name">Nome do Filme: </label>
                     <input type="text" name="name" id="movieName" placeholder="Nome do Filme" required></br></br>

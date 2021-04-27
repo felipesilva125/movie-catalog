@@ -2,24 +2,16 @@
 <html>
     <head>
         <title>Catálago de Filmes</title>
-        <meta charset="utf-8">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+        <meta charset="utf-8">        
         <link href="css/style-menu.css" rel="stylesheet" type="text/css">
         <link href="css/style-home.css" rel="stylesheet" type="text/css">
 
         <script type="text/javascript">
-        
-            function showMovieInfo(){
-                var xhr = new XMLHttpRequest();                         
-                xhr.open('GET', 'http://localhost:8082/filme');
-                xhr.send();
-            }
 
             function getMovies() {
 
                 var xhr = new XMLHttpRequest();                         
                 xhr.open('GET', 'http://localhost:8082/busca-filmes');                
-
                 xhr.onreadystatechange = () => {
                     if(xhr.readyState == 4) {                        
                         if(xhr.status == 200) {                            
@@ -28,11 +20,11 @@
                         }
                     }
                 };                
-
                 xhr.send();
             }
 
-            function showMovies(movies) {                                
+            function showMovies(movies) {   
+                var container = document.getElementById('container');
                 movies.forEach(movie => {                                        
                     var gridItem = document.createElement("div");
                     gridItem.setAttribute("class", "item-gallery")
@@ -53,7 +45,7 @@
             }
 
             function createImage(imagePath){
-                var img = document.createElement("img");
+                var img = document.createElement("img");                
                 
                 var path = "./" + imagePath.substring(imagePath.indexOf("images"), imagePath.length);                
                 path = path.replace(/\\/g, "/");                

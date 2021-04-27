@@ -2,13 +2,29 @@
 <html>
     <head>
         <title>Catálago de Filmes</title>
-        <meta charset="utf-8">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+        <meta charset="utf-8">        
         <link href="css/style-menu.css" rel="stylesheet" type="text/css">
         <link href="css/style-home.css" rel="stylesheet" type="text/css">        
+
+        <script>
+
+            function getMovie(){
+                var xhr = new XMLHttpRequest();                         
+                xhr.open('GET', document.location);                                      
+                xhr.onreadystatechange = () => {
+                    if(xhr.readyState == 4) {                        
+                        if(xhr.status == 200) {                            
+                            console.log(JSON.parse(xhr.getResponseHeader('movie')));
+                        }
+                    }
+                };
+                xhr.send();
+            }
+
+        </script>
     </head>
 
-    <body>        
+    <body onload="getMovie()">        
         <section> 
             <div>
                 TELA DO FILME
