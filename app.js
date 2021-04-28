@@ -5,7 +5,6 @@ const path = require('path');
 const mongoose = require('mongoose');
 require('./model/Movie')
 const Movie = mongoose.model("Movies");
-const cookieParser = require('cookie-parser');
 const fs = require('fs')
 
 mongoose.Promise = global.Promise;
