@@ -3,32 +3,127 @@
     <head>
         <title>Catálago de Filmes</title>
         <meta charset="utf-8">        
-        <link href="css/style-menu.css" rel="stylesheet" type="text/css">
-        <link href="css/style-home.css" rel="stylesheet" type="text/css">        
+        <link href="../css/style-menu.css" rel="stylesheet" type="text/css">
+        <link href="../css/style-home.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <script>
+        <script type="text/javascript">
 
             function getMovie(){
                 var xhr = new XMLHttpRequest();                         
                 xhr.open('GET', document.location);                                      
                 xhr.onreadystatechange = () => {
                     if(xhr.readyState == 4) {                        
-                        if(xhr.status == 200) {                            
-                            console.log(JSON.parse(xhr.getResponseHeader('movie')));
+                        if(xhr.status == 200) {  
+                            let movie = JSON.parse(xhr.getResponseHeader('movie'));                            
+                            showMovieInfo(movie);
                         }
                     }
                 };
                 xhr.send();
             }
 
+            function showMovieInfo(movie){
+                console.log(movie);                                                
+                console.log(getVideoUrl(movie));  
+
+                let spotlight = document.getElementById("section-spotlight");                
+                let iframe = createIframe(movie);
+                let spotlightText = createSpotlightText(movie);
+                let overlay = document.createElement('div')
+                overlay.className = 'overlay';
+                
+                spotlight.appendChild(iframe);
+                spotlight.appendChild(overlay);
+                spotlight.appendChild(spotlightText);
+            }
+
+            function getVideoUrl(movie){
+                let videoUrl = movie.Trailer;
+                let videoId = videoUrl.substring(videoUrl.indexOf('/embed/') + 7, videoUrl.length);
+                return videoUrl + `?autoplay=1&mute=1&playlist=${videoId}&loop=1&controls=0"`;
+            }
+
+            function createIframe(movie){
+                let iframe = document.createElement('iframe');                             
+                iframe.className = 'video-destaque';
+                iframe.src = getVideoUrl(movie);
+                iframe.allowFullscreen = true;
+                iframe.title = 'YouTube video player';
+                iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                iframe.frameborder="0" 
+
+                return iframe;
+            }
+
+            function createSpotlightText(movie){
+                let spotlightText = document.createElement('div');
+                spotlightText.className = 'texto-destaque';
+
+                let h2 = document.createElement('h2');
+                h2.innerHTML = movie.Name;
+
+                let h3 = document.createElement('h3');
+                h3.innerHTML = "Trailer Oficial";
+                
+                spotlightText.appendChild(h2);
+                spotlightText.appendChild(h3);
+                return spotlightText;
+            }
+
         </script>
     </head>
 
-    <body onload="getMovie()">        
-        <section> 
-            <div>
-                TELA DO FILME
-            </div>            
-        </section>                
+    <body onload="getMovie()">
+        
+        <header>
+            <div class="center">
+                <div class="header-left">
+                    <div class="menu-header">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <!-- <li><a href="/login">Login</a></li> -->
+                            <li><a href="/cadastro">Cadastrar Filme</a></li>
+                            <!-- <li><a href="/cadastro-usuario">Cadastrar Usuário</a></li>  -->
+                        </ul>
+                    </div>
+                </div>
+        
+                <div class="header-right">
+                    <div class="search">
+                        <!--Criar campo de busca-->
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <section class="destaque" id="section-spotlight" >             
+            <!--<iframe class="video-destaque" src="https://www.youtube.com/embed/4QRdB4RAQMs?autoplay=1&mute=1&playlist=4QRdB4RAQMs&loop=1&controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+            </iframe>
+
+            <div class="overlay"></div>
+
+            <div class="texto-destaque">
+                <h2>Vingadores: Ultimato</h2>
+                <h3>Trailer 2 legendado.</h3>
+                <p>Aqui vai a descrição completa do filme.</p>
+            </div>-->
+        </section> 
+        
+        <section class="movie-info">
+            <div class="container">
+                Titulo do Filme
+                <a href="javascript:void(0)" onclick="rating(1)">
+                    <img style="width: 30px;" src="/images/star0.png" id="s1"></a>        
+                <a href="javascript:void(0)" onclick="rating(2)">
+                    <img style="width: 30px;" src="/images/star0.png" id="s2"></a>    
+                <a href="javascript:void(0)" onclick="rating(3)">
+                    <img style="width: 30px;" src="/images/star0.png" id="s3"></a>
+                <a href="javascript:void(0)" onclick="rating(4)">
+                    <img style="width: 30px;" src="/images/star0.png" id="s4"></a>
+                <a href="javascript:void(0)" onclick="rating(5)">
+                    <img style="width: 30px;" src="/images/star0.png" id="s5"></a>                                                
+            </div>
+        </section>
     </body>
 </html>

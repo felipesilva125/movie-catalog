@@ -24,7 +24,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/views'));
-app.use(cookieParser());
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname+'/views/front/home/home.html'));
@@ -32,6 +31,10 @@ app.get('/', (req, res) => {
 
 app.get('/cadastro', (req, res) => {
     res.sendFile(path.join(__dirname+'/views/front/register/movie-register/register.html'));
+});
+
+app.get('/filme', (req, res) => {
+    res.end(fs.readFileSync(__dirname+'/views/front/register/movie-register/register.html'));
 });
 
 app.get('/login', (req, res) => {    
@@ -56,11 +59,6 @@ app.post('/cadastro/valida-form', (req, res) => {
     });
 });
 
-app.post('/teste', (req, res) => {
-    console.log('entrou no teste');
-    res.redirect("/cadastro");
-});
-
 app.get('/busca-filmes', (req, res) => {
     Movie.find().lean().then((movies) => {
         if (movies){
@@ -70,7 +68,12 @@ app.get('/busca-filmes', (req, res) => {
     });    
 });
 
+app.get('/teste', (req, res) => {                                                   
+    res.sendFile(path.join(__dirname+'/views/front/register/user-register/user-register.html'));
+});
+
 app.get('/filme/:id', (req, res) => {                                                   
+
     Movie.findById(req.params.id).lean().then((movie) => {
         res.writeHead(200, {
                 'Content-Type': 'text/html',

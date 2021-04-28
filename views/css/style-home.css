@@ -16,7 +16,7 @@ iframe.video-destaque{
 	position: absolute;
 	left: 0;
 	top: 0;
-	z-index: 1;
+	z-index: 1;	
 }
 
 .overlay{
@@ -34,14 +34,18 @@ iframe.video-destaque{
 	z-index: 3;
 	position: relative;
 	margin-top:90px;
-	margin-left: 4%;
+	margin-left: 4%;	
 }
 
 .texto-destaque h2{
 	color: #8191A6;
-	font-size: 40px;
+	font-size: 60px;
     margin-top: -70px;
 	text-transform: uppercase;
+	text-shadow: rgb(90, 88, 88) 0.1em 0.1em 0.2em;
+	-webkit-text-stroke-width: 2px; /* largura da borda */
+    -webkit-text-stroke-color: rgb(7, 42, 94); /* cor da borda */
+	max-width: 300px;
 }
 
 .texto-destaque h3{
@@ -83,10 +87,6 @@ iframe.video-destaque{
     position: relative;        	
 }
 
-.item-gallery:hover {
-    cursor: pointer;  
-}
-
 .item-gallery .img-gallery {
     width: 100%;
     height: 100%;
@@ -111,6 +111,11 @@ iframe.video-destaque{
     font-size: 16pt;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-align: center;
+}
+
+.container{
+	width: 70%;
+	position: relative;
 }
 
 @media(max-width:768px){

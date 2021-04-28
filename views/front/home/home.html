@@ -5,6 +5,7 @@
         <meta charset="utf-8">        
         <link href="css/style-menu.css" rel="stylesheet" type="text/css">
         <link href="css/style-home.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <script type="text/javascript">
 
@@ -29,17 +30,20 @@
                     var gridItem = document.createElement("div");
                     gridItem.setAttribute("class", "item-gallery")
 
-                    var link = document.createElement("a");
-                    link.setAttribute("href", `/filme/${movie._id}`);
+                    var input = document.createElement("input");
+                    input.setAttribute('onclick', `location.href='/filme/${movie._id}'`);
+                    input.type = 'button';
+                    input.value = 'Ver Mais +';
                     
                     var img = createImage(movie.ImagePath);
                     var span = document.createElement("span");
-                    span.setAttribute("class", "title-gallery")
+                    span.setAttribute("class", "title-gallery");
                     span.innerHTML = movie.Name;
 
-                    link.appendChild(img);                    
-                    link.appendChild(span);
-                    gridItem.appendChild(link);
+                    img.appendChild(input);
+                    gridItem.appendChild(img);
+                    gridItem.appendChild(span);
+                    gridItem.appendChild(input);
                     container.appendChild(gridItem);
                 });                
             }
@@ -84,20 +88,20 @@
 
         <section class="destaque">             
             <iframe class="video-destaque" src="https://www.youtube.com/embed/4QRdB4RAQMs?autoplay=1&mute=1&playlist=4QRdB4RAQMs&loop=1&controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-            </iframe>
+            </iframe>            
 
             <div class="overlay"></div>
 
             <div class="texto-destaque">
                 <h2>Vingadores: Ultimato</h2>
                 <h3>Trailer 2 legendado.</h3>
-                <p>Aqui vai a descrição completa do filme.</p>
+                <p>Aqui vai a descrição completa do filme.</p>                     
+                
             </div>
-
         </section>        
 
         <section class="movie-grid"> 
-            <div class="container-gallery" id="container">
+            <div class="container-gallery" id="container">                
             </div>                
         </section>
     </body>
