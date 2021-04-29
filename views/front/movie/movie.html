@@ -24,18 +24,146 @@
             }
 
             function showMovieInfo(movie){
-                console.log(movie);                                                
-                console.log(getVideoUrl(movie));  
+                let mainSection = document.getElementById("main-section"); 
+                let movieTitle = getMovieTitle(movie);
 
-                let spotlight = document.getElementById("section-spotlight");                
-                let iframe = createIframe(movie);
-                let spotlightText = createSpotlightText(movie);
-                let overlay = document.createElement('div')
-                overlay.className = 'overlay';
+                let mainInfo = document.createElement('div');
+                mainInfo.className = 'main-info';
+                let moviePicture = getMoviePicture(movie);
+                let mainContent = createMainContent(movie);
+                let cast = createCast(movie);
                 
-                spotlight.appendChild(iframe);
-                spotlight.appendChild(overlay);
-                spotlight.appendChild(spotlightText);
+                let middleInfo = getMiddleInfo(movie);
+
+                mainInfo.appendChild(moviePicture);
+                mainInfo.appendChild(mainContent);
+                mainInfo.appendChild(cast);
+
+                mainSection.appendChild(movieTitle);
+                mainSection.appendChild(mainInfo);
+                mainSection.appendChild(middleInfo);
+            }
+
+            function getMiddleInfo(movie){
+
+                let middleInfo = document.createElement('div');
+                middleInfo.className = 'main-info';
+
+                var synopsis = document.createElement('div');
+                synopsis.className = 'synopsis';
+
+                synopsis.appendChild(createH2('Sinopse:'));
+                synopsis.appendChild(createParagraph(movie.Synopsis));
+
+                middleInfo.appendChild(synopsis);
+
+                var rating = createMediumRating(movie);
+                middleInfo.appendChild(rating);
+
+                return middleInfo;
+            }
+
+            function createMediumRating(movie){
+
+                var rating = document.createElement('div');
+                rating.className = 'rating';
+
+                rating.appendChild(createH2('Média:'));
+
+                var mediumRating = document.createElement('div');
+                mediumRating.className = 'medium-rating';
+
+                var h1 = document.createElement('h1');
+                h1.innerHTML = '4.9';
+                h1.style = 'font-size: 3em; text-align: center;'
+
+                var img = document.createElement('img');
+                img.src = '/images/star1.png';
+
+                mediumRating.appendChild(h1);
+                mediumRating.appendChild(img);
+
+                rating.appendChild(mediumRating);
+
+                return rating;                
+            }
+
+            function createMainContent(movie){
+
+                let mainInfo = document.createElement('div')
+                mainInfo.className = 'movie-content';
+
+                mainInfo.appendChild(createH2('Ano de Estréia:'));
+                mainInfo.appendChild(createParagraph(new Date(movie.ReleaseDate).getFullYear()));
+
+                mainInfo.appendChild(createH2('Categoria:'));
+                mainInfo.appendChild(createParagraph(movie.Category));
+
+                mainInfo.appendChild(createH2('Produtora:'));
+                mainInfo.appendChild(createParagraph(movie.Producer));
+
+                mainInfo.appendChild(createH2('Diretor:'));
+                mainInfo.appendChild(createParagraph(movie.Director));
+
+                return mainInfo;
+            }
+
+            function createCast(movie){
+
+                let mainInfo = document.createElement('div')
+                mainInfo.className = 'movie-content';
+
+                mainInfo.appendChild(createH2('Elenco:'));
+                let cast = movie.Cast.slice(0, 10);
+
+                cast.forEach((actor) => {
+                    mainInfo.appendChild(createParagraph(actor));
+                });
+
+                return mainInfo;
+            }
+
+            function createH2(content){
+                var h2 = document.createElement('h2');
+                h2.innerHTML = content;
+                return h2;
+            }
+
+            function createParagraph(content){
+                var p = document.createElement('p');
+                p.innerHTML = content;
+                return p;
+            }
+
+            function getMoviePicture(movie){
+                let div = document.createElement('div');
+                div.className = "movie-picture";
+
+                let img = createImage(movie);
+                div.appendChild(img);
+
+                return div;
+            }
+
+            function createImage(movie){
+                var imagePath = movie.ImagePath;
+                var img = document.createElement("img");                
+                
+                var path = "/" + imagePath.substring(imagePath.indexOf("images"), imagePath.length);                
+                path = path.replace(/\\/g, "/");                                             
+                
+                img.setAttribute("src", path);
+                img.setAttribute('itemprop', 'image');
+                img.alt = movie.Name;
+
+                return img;
+            }
+            
+            function getMovieTitle(movie){
+                let title = document.createElement('h1');
+                title.style = 'text-align: center; font-size: 3em;';
+                title.innerHTML = movie.Name;
+                return title;
             }
 
             function getVideoUrl(movie){
@@ -54,21 +182,6 @@
                 iframe.frameborder="0" 
 
                 return iframe;
-            }
-
-            function createSpotlightText(movie){
-                let spotlightText = document.createElement('div');
-                spotlightText.className = 'texto-destaque';
-
-                let h2 = document.createElement('h2');
-                h2.innerHTML = movie.Name;
-
-                let h3 = document.createElement('h3');
-                h3.innerHTML = "Trailer Oficial";
-                
-                spotlightText.appendChild(h2);
-                spotlightText.appendChild(h3);
-                return spotlightText;
             }
 
         </script>
@@ -97,47 +210,7 @@
             </div>
         </header>
         
-        <!--<section class="destaque" id="section-spotlight" >             
-            <iframe class="video-destaque" src="https://www.youtube.com/embed/4QRdB4RAQMs?autoplay=1&mute=1&playlist=4QRdB4RAQMs&loop=1&controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-            </iframe>
-
-            <div class="overlay"></div>
-
-            <div class="texto-destaque">
-                <h2>Vingadores: Ultimato</h2>
-                <h3>Trailer 2 legendado.</h3>
-                <p>Aqui vai a descrição completa do filme.</p>
-            </div>
-        </section> -->
-        
-        <section class="movie-info">                  
-            <div class="main-info">
-                <div class="movie-picture">
-                    <img itemprop="image" src="/images/Vingadores Era de Ultron.jpg" alt="Vingadores Era de Ultron">
-                </div>
-                <div class="movie-content">
-                    <h1>Vingadores Era de Ultron</h1>
-                    <h2>Ano de estréia:</h2>
-                        <p>2015</p>
-                    <h2>Categoria:</h2>
-                        <p>Ação</p>
-                    <h2>Produtora:</h2>
-                        <p>Disney</p>
-                    <h2>Diretor:</h2>                        
-                        <p>Russo Brothers</p>
-                </div>
-            </div>            
-            <div class="main-info">
-                <div class="synopsis">
-                <h2>Sinopse:</h2>                                
-                    <p>Ao tentar proteger o planeta de ameaças, Tony Stark constrói um sistema de inteligência artificial que cuidaria da paz mundial. O projeto acaba dando errado e gera o nascimento do Ultron. Com o destino da Terra em jogo, Capitão América, Homem de Ferro, Thor, Hulk, Viúva Negra e Gavião Arqueiro terão que se unir para mais uma vez salvar a raça humana da extinção.</p>            
-                </div>
-            </div>
-            <div class="trailer">
-                <iframe class="video-teste" src="https://www.youtube.com/embed/4QRdB4RAQMs?autoplay=1&mute=1&playlist=4QRdB4RAQMs&loop=1&controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-                </iframe>
-                
-            </div>
+        <section class="movie-info" id="main-section">                                          
         </section>
     </body>
 </html>
