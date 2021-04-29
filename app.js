@@ -88,6 +88,21 @@ app.get('/filme/:id', (req, res) => {
     });
 });
 
+app.post('/filme/avaliar', (req, res) => {    
+    Movie.findById(req.body.id).lean().then((movie) => {        
+        let totalRating = movie.TotalRating + req.body.rating;
+        let ratingCount = movie.RatingCount + 1;
+        
+        Movie.findByIdAndUpdate(req.body.id, { 
+            TotalRating: totalRating,
+            RatingCount: ratingCount
+        }, { returnOriginal: false }).lean().then((movie) => {            
+            res.json(movie);            
+            res.end();
+        });        
+    });
+});
+
 app.post('/novo-filme', (req, res) => {
     const formidable = require('formidable');
     const fs = require('fs');
@@ -96,7 +111,7 @@ app.post('/novo-filme', (req, res) => {
 
         var oldPath = files.image.path;                
         var extension = path.extname(files.image.name);
-        var newPath = path.join(__dirname,'/images/', fields.name + extension);
+        var newPath = path.join(__dirname,'/views/images/', fields.name + extension);
 
         var newMovie = new Movie({
             Name: fields.name,                   
@@ -108,7 +123,9 @@ app.post('/novo-filme', (req, res) => {
             Duration: fields.duration,
             Trailer: fields.trailer,
             Synopsis: fields.synopsis,
-            ImagePath: newPath
+            ImagePath: newPath,
+            TotalRating: 0,
+            RatingCount: 0
         });
 
         newMovie.save().then(() => {            

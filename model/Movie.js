@@ -41,6 +41,16 @@ const Movie = Schema({
     ImagePath: {
         type: String,
         required: true
+    },
+    TotalRating: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    RatingCount: {
+        type: Number,
+        required: true,
+        default: 0
     }
 });
 
