@@ -29,11 +29,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/cadastro', (req, res) => {
-    res.sendFile(path.join(__dirname+'/views/front/register/movie-register/register.html'));
+    res.sendFile(path.join(__dirname+'/views/front/register/register.html'));
 });
 
 app.get('/filme', (req, res) => {
-    res.end(fs.readFileSync(__dirname+'/views/front/register/movie-register/register.html'));
+    res.end(fs.readFileSync(__dirname+'/views/front/register/register.html'));
 });
 
 app.get('/login', (req, res) => {    

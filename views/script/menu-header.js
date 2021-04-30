@@ -43,7 +43,7 @@ function buildHeaderLeft(){
     let liHome = document.createElement('li');                
     let home = document.createElement('a');
     home.href = '/';
-    home.innerHTML = 'Home';
+    home.innerHTML = 'Início';
     liHome.appendChild(home);
 
     let liRegister = document.createElement('li');
@@ -62,7 +62,7 @@ function buildHeaderLeft(){
 }
 
 function filterMovies() {
-    var input, filter, movies, txtValue;
+    var input, filter, movies;
 
     input = document.getElementById("searchName");
     filter = input.value.toUpperCase();                               

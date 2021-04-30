@@ -5,7 +5,9 @@
     <title>Catálogo de Filmes</title>
     <meta charset="UTF-8">    
     <link href="css/style-menu.css" rel="stylesheet" type="text/css">
-    <link href="css/style-movie-register.css" rel="stylesheet" type="text/css">       
+    <link href="css/style-movie-register.css" rel="stylesheet" type="text/css">    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ropa+Sans&display=swap" rel="stylesheet">   
     
     <script type="text/javascript" src="./script/menu-header.js"></script>
     <script type="text/javascript" src="./script/register.js"></script>   
@@ -14,12 +16,15 @@
 <body onload="buildHeader()">
     
     <header>
-        <div class="center" id="menu">                
+        <div class="center" id="menu">   
         </div>
     </header>
 
     <section class="form">
         <div class="form-div">
+
+            <h1 class="title">Cadastrar novo filme</h1>
+
             <form id="registerForm" action="/novo-filme" method="POST" enctype="multipart/form-data">
                 <div>
                     <label for="name">Nome do Filme: </label>
@@ -62,11 +67,12 @@
                 </div>
 
                 <div class="input-wrapper">
-                    <h1>
+                    <p>
                         Enviar Imagem: </br></br>
-                        <label for="image">Carregar imagem </label>
-                        <input type="file" id="image" name="image" required></br></br>
-                    </h1></br>
+                        <label for="input-file">Carregar imagem</label>
+                        <input type="file" id="input-file" name="image" value="" onchange="getFileName()" required></br></br>
+                        <span id='file-name'></span>
+                    </p></br>
                 </div>                
 
                 <div>
