@@ -1,17 +1,17 @@
 function getMovies() {
     buildHeader();
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:8082/busca-filmes');
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                var movies = JSON.parse(xhr.response);
+    var request = new XMLHttpRequest();
+    request.open('GET', 'http://localhost:8082/busca-filmes');
+    request.onreadystatechange = () => {
+        if (request.readyState == 4) {
+            if (request.status == 200) {
+                var movies = JSON.parse(request.response);
                 showMovies(movies);
             }
         }
     };
-    xhr.send();
+    request.send();
 }
 
 function showMovies(movies) {
@@ -33,10 +33,12 @@ function showMovies(movies) {
         h2_name.innerHTML = movie.Name;
 
         var h2_category = document.createElement("h2");
+        h2_category.className = 'category-movie';
         h2_category.id = 'category-movie';
         h2_category.innerHTML = "Categoria: " + movie.Category;
 
         var h2_rating = document.createElement('h2');
+        h2_rating.className = 'medium-rating'
         h2_rating.id = 'medium-rating'
 
         if (movie.RatingCount === 0)
@@ -69,4 +71,34 @@ function createImage(imagePath) {
     img.setAttribute("class", "img-gallery");
 
     return img;
+}
+
+function sortMovies(sortType) {
+        
+    var shouldSwitch, i;
+    
+    let movies = document.getElementById("container").children;
+    let switching = true;
+    
+    while (switching) {                
+        switching = false;                
+        for (i = 0; i < (movies.length - 1); i++) {            
+            shouldSwitch = false;            
+            let current = movies[i].getElementsByClassName(sortType)[0];
+            let next = movies[i + 1].getElementsByClassName(sortType)[0];
+            let currentText = current.textContent || current.innerText;
+            let nextText = next.textContent || next.innerText;
+
+            if (currentText.toLowerCase() > nextText.toLowerCase()) {                
+                shouldSwitch = true;
+                break;
+            }
+        }
+
+        if (shouldSwitch) {            
+            movies[i].parentNode.insertBefore(movies[i + 1], movies[i]);
+            switching = true;
+        }
+    }    
+
 }

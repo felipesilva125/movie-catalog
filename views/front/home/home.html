@@ -17,11 +17,16 @@
         <header>
             <div class="center" id="menu">                
             </div>
-        </header>
+        </header>        
 
         <section class="movie-grid"> 
             <div class="container-gallery" id="container">                
             </div>                
-        </section>
+
+            <input type="button" value="Ordenar por Nome" onclick="sortMovies('title-gallery')">
+            <input type="button" value="Ordenar por Categoria" onclick="sortMovies('category-movie')">
+            <input type="button" value="Ordenar por Avaliação" onclick="sortMovies('medium-rating')">
+        </section>        
+        
     </body>
 </html>
