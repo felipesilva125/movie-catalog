@@ -7,113 +7,14 @@
         <link href="css/style-home.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         
-        <script type="text/javascript">
-
-            function getMovies() {
-
-                var xhr = new XMLHttpRequest();                         
-                xhr.open('GET', 'http://localhost:8082/busca-filmes');                
-                xhr.onreadystatechange = () => {
-                    if(xhr.readyState == 4) {                        
-                        if(xhr.status == 200) {                            
-                            var movies = JSON.parse(xhr.response);                                                       
-                            showMovies(movies);
-                        }
-                    }
-                };                
-                xhr.send();
-            }
-
-            function showMovies(movies) {   
-                var container = document.getElementById('container');
-                movies.forEach(movie => {                                        
-                    var gridItem = document.createElement("div");
-                    gridItem.setAttribute("class", "item-gallery")
-
-                    var input = document.createElement("input");
-                    input.setAttribute('onclick', `location.href='/filme/${movie._id}'`);
-                    input.type = 'button';
-                    input.value = 'Ver Mais +';
-                    
-                    var img = createImage(movie.ImagePath);
-                    var span = document.createElement("span");
-                    span.setAttribute("class", "title-gallery");
-                    span.innerHTML = movie.Name;
-
-                    img.appendChild(input);
-                    gridItem.appendChild(img);
-                    gridItem.appendChild(span);
-                    gridItem.appendChild(input);
-                    container.appendChild(gridItem);
-                });                
-            }
-
-            function createImage(imagePath){
-                var img = document.createElement("img");                
-                
-                var path = "./" + imagePath.substring(imagePath.indexOf("images"), imagePath.length);                
-                path = path.replace(/\\/g, "/");                
-
-                img.setAttribute("src", path);
-                img.setAttribute("class", "img-gallery");
-                img.setAttribute("alt", "");
-
-                return img;
-            }
-
-            // function filterMovies(){
-            //     let name = document.getElementById('searchName');
-                
-            //     console.log(name.);
-            //     console.log('entrou aqui')
-            // }
-
-            function filterMovies() {
-                var input, filter, movies, txtValue;
-
-                input = document.getElementById("searchName");
-                filter = input.value.toUpperCase();                               
-
-                movies = document.getElementById("container").children;                                
-
-                for (i = 0; i < movies.length; i++){
-                    let title = movies[i].getElementsByClassName('title-gallery')[0];
-                    let titleValue = title.textContent || title.innerText;                    
-
-                    if (titleValue.toUpperCase().indexOf(filter) > -1) {
-                        movies[i].style.display = "";
-                    } else {
-                        movies[i].style.display = "none";
-                    }
-                }
-            }
-
-        </script>
+        <script type="text/javascript" src="./script/menu-header.js"></script>
+        <script type="text/javascript" src="./script/home.js"></script>
 
     </head>
 
     <body onload="getMovies()">
         <header>
-            <div class="center">
-                <div class="header-left">
-                    <div class="menu-header">
-                        <ul>
-                            <li><a href="/">Home</a></li>                            
-                            <li><a href="/cadastro">Cadastrar Filme</a></li>                            
-                        </ul>
-                    </div>
-                </div>        
-                <div class="header-right">
-                    <!--<form class="search" method="POST" action="/cadastro">
-                        <input type="text" class="txtSearch" placeholder="Pesquisar..."/>
-                        <input type="image" src="../images/search.png" class="btnSearch" alt="a"/>
-                    </form>-->
-
-                    <div class="search">
-                        <input type="text" class="txtSearch" id="searchName" placeholder="Pesquisar..." onkeyup="filterMovies()"/>
-                        <img src="../images/search.png" class="btnSearch" alt="a"/>
-                    </div>
-                </div>
+            <div class="center" id="menu">                
             </div>
         </header>
 

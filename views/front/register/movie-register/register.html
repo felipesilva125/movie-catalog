@@ -5,49 +5,16 @@
     <title>Catálogo de Filmes</title>
     <meta charset="UTF-8">    
     <link href="css/style-menu.css" rel="stylesheet" type="text/css">
-    <link href="css/style-movie-register.css" rel="stylesheet" type="text/css">     
-    <script>
-        function validateForm() {
-            
-            var xhr = new XMLHttpRequest();
-            var movieName = document.getElementById("movieName").value;            
-            xhr.open('POST', 'http://localhost:8082/cadastro/valida-form');
-            xhr.setRequestHeader("Content-Type", "application/json");
-
-            const json = {
-                name: movieName
-            };
-            
-            xhr.onreadystatechange = () => {
-                if(xhr.readyState == 4) {
-                    if(xhr.status == 200) {                        
-                        alert("Filme salvo com sucesso!")
-                        document.getElementById("registerForm").submit();
-                    }                    
-                    else if (xhr.status == 500)                    
-                        alert("Filme ja existe!");                    
-                }                
-            };
-            
-            xhr.send(JSON.stringify(json));
-            console.log(result);            
-        }        
-    </script>
+    <link href="css/style-movie-register.css" rel="stylesheet" type="text/css">       
+    
+    <script type="text/javascript" src="./script/menu-header.js"></script>
+    <script type="text/javascript" src="./script/register.js"></script>   
 </head>
 
-<body>
+<body onload="buildHeader()">
+    
     <header>
-        <div class="center">
-            <div class="header-left">
-                <div class="menu-header">
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        <!-- <li><a href="/login">Login</a></li> -->
-                        <li><a href="/cadastro">Cadastrar Filme</a></li>
-                        <!-- <li><a href="/cadastro-usuario">Cadastrar Usuário</a></li>  -->
-                    </ul>
-                </div>
-            </div>
+        <div class="center" id="menu">                
         </div>
     </header>
 
