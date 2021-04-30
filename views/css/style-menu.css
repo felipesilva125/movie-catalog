@@ -7,17 +7,18 @@ body{
 }
 
 .center {    
-    position: relative;
+    position: fixed;
+    top: 0px;
     width: 100%;
-    z-index: 1;    	
+    z-index: 1;	
     background-color: #465E73;
     padding: 3px;
     height: 55px;
-    align-content: center;    
+    align-content: center;
 }
 
 .header-left{
-	float: left;    
+	float: left;
     align-self: center;
 }
 
