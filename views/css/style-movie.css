@@ -1,4 +1,4 @@
-.movie-info{	
+.movie-info {	
 	position: relative;
 	display: block;
 	margin: 100px 250px 30px 250px;
@@ -8,13 +8,13 @@
 	font-family: 'Ropa Sans', sans-serif;
 }
 
-.main-info{	
+.main-info {	
 	margin: 50px 60px;
 	display: flex;	
 	align-items: flex-start;
 }
 
-.movie-picture{
+.movie-picture {
 	width: 50%;
 	height: 350px;
 	overflow: hidden;
@@ -28,22 +28,22 @@
 	object-fit: fill;					
 }
 
-.synopsis{
+.synopsis {
 	width: 50%;	
 	margin-right: 30px;
 }
 
-.rating{	
+.rating {	
 	margin-left: 40px;
 	margin-right: 40px;
 	max-width: 25%;
 }
 
-.rating h2{
+.rating h2 {
 	margin-left: 60px;
 }
 
-.medium-rating{
+.medium-rating {
 	width: 100%;	
 	display: flex;
 	align-items: center;	
@@ -51,19 +51,19 @@
 	margin-left: 60px;		
 }
 
-.medium-rating img{
+.medium-rating img {
 	width: 60px;
 	height: 60px;
 	margin-left: 20px;	
 }
 
-.rate-movie{
+.rate-movie {
 	width: 100%;	
 	display: flex;
 	align-items: center;			
 }
 
-.rate-movie img{
+.rate-movie img {
 	width: 40px;
 	height: 40px;
 }
@@ -73,23 +73,23 @@
 	content: url('/images/star1.png');
 }
 
-.movie-content{		
+.movie-content {		
 	margin: 0px 40px 0px 100px;
 	max-width: 50%;	
 	max-height: 430px;
 }
 
-.movie-info h1{		
+.movie-info h1 {		
 	color:  white;		
     font-size: 2em;
     font-weight: bold;
 }
 
-.movie-info h2{	
+.movie-info h2 {	
 	color:  white;    
 }
 
-.movie-info p{	
+.movie-info p {	
 	margin-top: -10px;
 	color:  rgb(189, 189, 189);	    
 	font-size: 14pt;
@@ -97,7 +97,7 @@
 	line-height: 1.5;
 }
 
-.trailer{
+.trailer {
 	margin: 50px;
 	background-size: cover;
 	background-position: center;
@@ -107,7 +107,7 @@
 	margin: 60px;	
 }
 
-.movie-trailer{
+.movie-trailer {
 	width: 90%;
 	height: 100%;
 	position: absolute;

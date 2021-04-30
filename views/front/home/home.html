@@ -1,37 +1,45 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Catálago de Filmes</title>
-        <meta charset="utf-8">        
-        <link href="css/style-menu.css" rel="stylesheet" type="text/css">
-        <link href="css/style-home.css" rel="stylesheet" type="text/css">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Ropa+Sans&display=swap" rel="stylesheet">
-        
-        <script type="text/javascript" src="./script/menu-header.js"></script>
-        <script type="text/javascript" src="./script/home.js"></script>
 
-    </head>
+<head>
+    <title>Catálago de Filmes</title>
+    <meta charset="utf-8">
+    <link href="css/style-menu.css" rel="stylesheet" type="text/css">
+    <link href="css/style-home.css" rel="stylesheet" type="text/css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ropa+Sans&display=swap" rel="stylesheet">
 
-    <body onload="getMovies()">
-        <header>
-            <div class="center" id="menu">                
-            </div>
-        </header>   
-        
-        <h2 style="margin: 80px 0px 0px 60px; color: white;">Filtrar Categoria:</h2>
-        <select id="category-filter" onchange="filterCategory()" style="margin: 20px 0px 0px 60px; width: 200px;">
+    <script type="text/javascript" src="./script/menu-header.js"></script>
+    <script type="text/javascript" src="./script/home.js"></script>
 
-        </select>             
+</head>
 
-        <section class="movie-grid"> 
-            <div class="container-gallery" id="container">                
-            </div>                
+<body onload="getMovies()">
 
-            <input type="button" value="Ordenar por Nome" onclick="sortMovies('title-gallery', 'asc')">
-            <input type="button" value="Ordenar por Categoria" onclick="sortMovies('category-movie', 'asc')">
-            <input type="button" value="Ordenar por Avaliação" onclick="sortMovies('medium-rating', 'desc')">
-        </section>        
-        
-    </body>
+    <header>
+        <div class="center" id="menu">
+        </div>
+    </header>
+
+    <section class="order">
+        <div class="order-select-h2">
+            <h2>Filtrar Categoria:</h2>
+            <select class="order-select" id="category-filter" onchange="filterCategory()"></select>
+        </div>
+
+        <h2>Filtros de ordenação:</h2>
+        <input class="order-button" type="button" value="Por Nome" onclick="sortMovies('title-gallery', 'asc')">
+        <input class="order-button" type="button" value="Por Categoria" onclick="sortMovies('category-movie', 'asc')">
+        <input class="order-button" type="button" value="Por Avaliação" onclick="sortMovies('medium-rating', 'desc')">
+        <input class="order-button" type="button" value="Por Ano" onclick="sortMovies('movie-date', 'desc')">
+    </section>
+
+    <section class="movie-grid">
+        <h2>Filmes:</h2>
+        <div class="container-gallery" id="container">
+        </div>
+    </section>
+
+</body>
+
 </html>

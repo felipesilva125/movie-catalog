@@ -70,31 +70,37 @@ function showMovies(movies) {
         var img = createImage(movie.ImagePath);
 
         var h2_name = document.createElement("h2");
-        h2_name.setAttribute("class", "title-gallery");
+        h2_name.className = "title-gallery";
         h2_name.id = 'name-movie';
         h2_name.innerHTML = movie.Name;
 
         var h2_category = document.createElement("h2");
         h2_category.className = 'category-movie';
         h2_category.id = 'category-movie';
-        h2_category.innerHTML = "Categoria: " + movie.Category;
+        h2_category.innerHTML = movie.Category;
 
         var h2_rating = document.createElement('h2');
-        h2_rating.className = 'medium-rating'
-        h2_rating.id = 'medium-rating'
+        h2_rating.className = 'medium-rating';
+        h2_rating.id = 'medium-rating';
 
         if (movie.RatingCount === 0)
-            h2_rating.innerHTML = "Avaliação: " + 0;
+            h2_rating.innerHTML = 0;
         else
-            h2_rating.innerHTML = "Avaliação: " + Math.round((movie.TotalRating / movie.RatingCount) * 10) / 10;
+            h2_rating.innerHTML = Math.round((movie.TotalRating / movie.RatingCount) * 10) / 10;
 
         var icon_star = document.createElement("img");
         icon_star.id = 'icon-star';
         icon_star.src = '/images/star1.png';
 
+        var h2_date = document.createElement("h2");
+        h2_date.className = 'movie-date';
+        h2_date.id = 'movie-date';
+        h2_date.innerHTML = new Date(movie.ReleaseDate).getFullYear();
+
         img.appendChild(input);
         gridItem.appendChild(img);
-        gridItem.appendChild(h2_name);                
+        gridItem.appendChild(h2_name);
+        gridItem.appendChild(h2_date);
         gridItem.appendChild(h2_category);
         gridItem.appendChild(h2_rating);
         gridItem.appendChild(icon_star);
