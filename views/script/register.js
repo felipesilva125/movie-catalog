@@ -1,6 +1,18 @@
-function validateForm() {
-    var request = new XMLHttpRequest();
+function validateForm() {    
+    
     var movieName = document.getElementById("movieName").value;
+    if (movieName.includes('\\') || movieName.includes('/')) {        
+        alert("Caracteres não permitidos: \\ / .");
+        return;
+    }        
+
+    verifyDataBase(movieName);
+}
+
+
+function verifyDataBase(movieName) {
+
+    var request = new XMLHttpRequest();
     request.open('POST', 'http://localhost:8082/cadastro/valida-form');
     request.setRequestHeader("Content-Type", "application/json");
 
@@ -11,7 +23,7 @@ function validateForm() {
     request.onreadystatechange = () => {
         if (request.readyState == 4) {
             if (request.status == 200) {
-                alert("Filme salvo com sucesso!")
+                alert("Filme salvo com sucesso!");
                 document.getElementById("registerForm").submit();
             }
             else if (request.status == 500)
@@ -22,7 +34,6 @@ function validateForm() {
     request.send(JSON.stringify(json));
     console.log(result);
 }
-
 
 function getFileName() {
     var input, fileName;

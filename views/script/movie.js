@@ -161,7 +161,7 @@ function createCast(){
     mainInfo.className = 'movie-content';
 
     mainInfo.appendChild(createH2('Elenco:'));
-    let cast = movie.Cast.slice(0, 10);
+    let cast = movie.Cast.slice(0, 8);
 
     cast.forEach((actor) => {
         mainInfo.appendChild(createParagraph(actor));
@@ -197,7 +197,7 @@ function createImage(){
     var img = document.createElement("img");                
     
     var path = "/" + imagePath.substring(imagePath.indexOf("images"), imagePath.length);                
-    path = path.replace(/\\/g, "/");                                             
+    path = path.replace(/\\/g, "/").replace(/:/g,'').replace(/\*/g,'').replace(/\?/g,'').replace(/\"/g,'').replace(/</g,'').replace(/>/g,'').replace(/\|/g,'');;                                             
     
     img.setAttribute("src", path);
     img.setAttribute('itemprop', 'image');

@@ -65,7 +65,7 @@ function createImage(imagePath) {
     var img = document.createElement("img");
 
     var path = "./" + imagePath.substring(imagePath.indexOf("images"), imagePath.length);
-    path = path.replace(/\\/g, "/");
+    path = path.replace(/\\/g, "/").replace(/:/g,'').replace(/\*/g,'').replace(/\?/g,'').replace(/\"/g,'').replace(/</g,'').replace(/>/g,'').replace(/\|/g,'');
 
     img.setAttribute("src", path);
     img.setAttribute("class", "img-gallery");
@@ -73,7 +73,7 @@ function createImage(imagePath) {
     return img;
 }
 
-function sortMovies(sortType) {
+function sortMovies(sortType, ascOrDesc) {
         
     var shouldSwitch, i;
     
@@ -89,9 +89,17 @@ function sortMovies(sortType) {
             let currentText = current.textContent || current.innerText;
             let nextText = next.textContent || next.innerText;
 
-            if (currentText.toLowerCase() > nextText.toLowerCase()) {                
-                shouldSwitch = true;
-                break;
+            if (ascOrDesc === "desc"){
+                if (currentText.toLowerCase() < nextText.toLowerCase()) {                
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            else {
+                if (currentText.toLowerCase() > nextText.toLowerCase()) {                
+                    shouldSwitch = true;
+                    break;
+                }
             }
         }
 

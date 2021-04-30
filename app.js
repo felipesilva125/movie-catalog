@@ -36,14 +36,6 @@ app.get('/filme', (req, res) => {
     res.end(fs.readFileSync(__dirname+'/views/front/register/register.html'));
 });
 
-app.get('/login', (req, res) => {    
-    res.sendFile(path.join(__dirname+'/views/front/login.html'));
-});
-
-app.get('/cadastro-usuario', (req, res) => {
-    res.sendFile(path.join(__dirname+'/views/front/register/user-register/user-register.html'));
-});
-
 app.post('/cadastro/valida-form', (req, res) => {       
     Movie.findOne({Name: req.body.name}).lean().then((movie) => 
     {        
@@ -65,10 +57,6 @@ app.get('/busca-filmes', (req, res) => {
             res.end();
         }
     });    
-});
-
-app.get('/teste', (req, res) => {                                                   
-    res.sendFile(path.join(__dirname+'/views/front/register/user-register/user-register.html'));
 });
 
 app.get('/filme/:id', (req, res) => {                                                   
@@ -112,6 +100,7 @@ app.post('/novo-filme', (req, res) => {
         var oldPath = files.image.path;                
         var extension = path.extname(files.image.name);
         var newPath = path.join(__dirname,'/views/images/', fields.name + extension);
+        newPath = newPath.replace(/:/g,'').replace(/\*/g,'').replace(/\?/g,'').replace(/\"/g,'').replace(/</g,'').replace(/>/g,'').replace(/\|/g,'');        
 
         var newMovie = new Movie({
             Name: fields.name,                   
