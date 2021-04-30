@@ -92,15 +92,13 @@ app.post('/filme/avaliar', (req, res) => {
 });
 
 app.post('/novo-filme', (req, res) => {
-    const formidable = require('formidable');
-    const fs = require('fs');
+    const formidable = require('formidable');    
     const form = new formidable.IncomingForm();
     form.parse(req, (err, fields, files) => {                
 
         var oldPath = files.image.path;                
         var extension = path.extname(files.image.name);
-        var newPath = path.join(__dirname,'/views/images/', fields.name + extension);
-        newPath = newPath.replace(/:/g,'').replace(/\*/g,'').replace(/\?/g,'').replace(/\"/g,'').replace(/</g,'').replace(/>/g,'').replace(/\|/g,'');        
+        var newPath = path.join(__dirname,'/views/images/', fields.name + extension);        
 
         var newMovie = new Movie({
             Name: fields.name,                   

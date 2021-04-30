@@ -1,10 +1,18 @@
 function validateForm() {    
     
     var movieName = document.getElementById("movieName").value;
-    if (movieName.includes('\\') || movieName.includes('/')) {        
-        alert("Caracteres não permitidos: \\ / .");
+    if (movieName.includes('\\') 
+        || movieName.includes('/')
+        || movieName.includes(':')
+        || movieName.includes('*')
+        || movieName.includes('?')
+        || movieName.includes('<')
+        || movieName.includes('>')
+        || movieName.includes('|')) {   
+
+        alert("Caracteres não permitidos: \\ / : * ? < > |");
         return;
-    }        
+    }
 
     verifyDataBase(movieName);
 }
