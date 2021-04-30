@@ -126,7 +126,7 @@ app.post('/novo-filme', (req, res) => {
 });
 
 app.get('/not-found', (req, res) => {
-    res.sendFile(path.join(__dirname+'/views/front/error-page.html'));
+    res.sendFile(path.join(__dirname+'/views/front/error/error-page.html'));
 });
 
 app.use(function (req, res, next) {
