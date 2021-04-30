@@ -161,3 +161,9 @@
     color: #326773;
 	font-weight: bold;
 }
+
+.order-button:focus{
+	border-color: none !important;
+	outline: 0;
+	box-shadow: none !important;
+}
