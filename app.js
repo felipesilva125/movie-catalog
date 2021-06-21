@@ -4,8 +4,21 @@ const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
 require('./model/Movie')
+const users = require('./routes/user')
 const Movie = mongoose.model("Movies");
 const fs = require('fs')
+const passport = require('passport');
+require('./config/auth')(passport);
+const session = require('express-session');
+
+//Sessão de usuário
+app.use(session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost/movie-catalog", {
@@ -128,6 +141,8 @@ app.post('/novo-filme', (req, res) => {
 app.get('/not-found', (req, res) => {
     res.sendFile(path.join(__dirname+'/views/front/error/error-page.html'));
 });
+
+app.use('/usuario', users);
 
 app.use(function (req, res, next) {
     res.status(404).redirect('/not-found');

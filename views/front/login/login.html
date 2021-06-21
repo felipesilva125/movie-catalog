@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Catálogo de Filmes</title>
+    <meta charset="UTF-8">    
+    <link href="../css/style-menu.css" rel="stylesheet" type="text/css">
+    <link href="../css/style-movie-register.css" rel="stylesheet" type="text/css">    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ropa+Sans&display=swap" rel="stylesheet">   
+    
+    <script type="text/javascript" src="../script/menu-header.js"></script>
+    <script type="text/javascript" src="../script/login.js"></script>
+</head>
+<body onload="buildLogin()">
+
+    <header>
+        <div class="center" id="menu">   
+        </div>
+    </header>
+
+    <section class="form">
+        <div class="form-div">
+
+            <h1 class="title">Entrar</h1>
+
+            <form id="login" action="/usuario/login" method="POST">
+                <div>
+                    <label for="email">E-mail: </label>
+                    <input type="text" name="email" id="email" placeholder="E-mail" required></br></br>
+                </div>
+
+                <div>
+                    <label for="password">Senha: </label>
+                    <input type="password" name="password" id="password" placeholder="Senha" required></br></br>
+                </div>
+
+                <div class="button-submit">
+                    <input type="submit" value="Login"></input>
+                </div>
+            </form>
+        </div>
+    </section>    
+    
+</body>
+</html>

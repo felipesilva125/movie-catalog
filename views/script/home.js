@@ -2,7 +2,7 @@ function getMovies() {
     buildHeader();
 
     var request = new XMLHttpRequest();
-    request.open('GET', 'http://localhost:8082/busca-filmes');
+    request.open('GET', document.location.origin+'/busca-filmes');
     request.onreadystatechange = () => {
         if (request.readyState == 4) {
             if (request.status == 200) {

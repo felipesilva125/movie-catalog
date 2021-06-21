@@ -234,7 +234,7 @@ function createIframe(){
 function rateMovie(value){                                
 
     let request = new XMLHttpRequest();
-    request.open('POST', 'http://localhost:8082/filme/avaliar');  
+    request.open('POST', document.location.origin+'/filme/avaliar');  
     request.setRequestHeader("Content-Type", "application/json");                                    
     
     const json = {

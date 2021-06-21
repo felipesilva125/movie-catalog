@@ -17,11 +17,10 @@ function validateForm() {
     verifyDataBase(movieName);
 }
 
-
 function verifyDataBase(movieName) {
 
     var request = new XMLHttpRequest();
-    request.open('POST', 'http://localhost:8082/cadastro/valida-form');
+    request.open('POST', document.location.origin+'/cadastro/valida-form');
     request.setRequestHeader("Content-Type", "application/json");
 
     const json = {

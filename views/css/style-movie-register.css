@@ -20,7 +20,7 @@
     font-family: 'Ropa Sans', sans-serif;
 }
 
-input[type=text], textarea, input[type=month], input[type=number]{
+input[type=text], textarea, input[type=month], input[type=number], input[type=password]{
     width: 100%;
     padding: 10px 20px;
     border: 2px solid #ccc;
