@@ -9,7 +9,7 @@ const passport = require('passport');
 const fs = require('fs');
 
 router.get('/cadastrar', (req, res) => {    
-    res.sendFile(path.join(__dirname, '../views/front/register/register-user.html'));
+    res.sendFile(path.join(__dirname, '../../client/front/register/register-user.html'));
 });
 
 router.post('/valida', (req, res) => {    
@@ -60,7 +60,7 @@ router.get('/login', (req, res) => {
         });
     }
 
-    res.end(fs.readFileSync(path.join(__dirname, '../views/front/login/login.html')));
+    res.end(fs.readFileSync(path.join(__dirname, '../../client/front/login/login.html')));
 });
 
 router.post('/login', 

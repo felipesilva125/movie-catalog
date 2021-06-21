@@ -3,12 +3,12 @@ const bodyParser = require('body-parser');
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
-require('./model/Movie')
-const users = require('./routes/user')
+require('./server/model/Movie')
+const users = require('./server/routes/user')
 const Movie = mongoose.model("Movies");
 const fs = require('fs')
 const passport = require('passport');
-require('./config/auth')(passport);
+require('./server/config/auth')(passport);
 const session = require('express-session');
 
 //Sessão de usuário
@@ -35,18 +35,18 @@ mongoose.connect("mongodb://localhost/movie-catalog", {
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use(express.static(__dirname + '/views'));
+app.use(express.static(__dirname + '/client'));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname+'/views/front/home/home.html'));
+    res.sendFile(path.join(__dirname+'/client/front/home/home.html'));
 });
 
 app.get('/cadastro', (req, res) => {
-    res.sendFile(path.join(__dirname+'/views/front/register/register.html'));
+    res.sendFile(path.join(__dirname+'/client/front/register/register.html'));
 });
 
 app.get('/filme', (req, res) => {
-    res.end(fs.readFileSync(__dirname+'/views/front/register/register.html'));
+    res.end(fs.readFileSync(__dirname+'/client/front/register/register.html'));
 });
 
 app.post('/cadastro/valida-form', (req, res) => {       
@@ -79,13 +79,13 @@ app.get('/filme/:id', (req, res) => {
                 'Content-Type': 'text/html',
                 'movie': JSON.stringify(movie)
             });        
-        res.end(fs.readFileSync(__dirname+'/views/front/movie/movie.html'));        
+        res.end(fs.readFileSync(__dirname+'/client/front/movie/movie.html'));        
     }).catch((err) => {
         res.writeHead(500, {
             'Content-Type': 'text/html',
             'error': err
         });
-        res.end(fs.readFileSync(__dirname+'/views/front/movie/movie.html'));        
+        res.end(fs.readFileSync(__dirname+'/client/front/movie/movie.html'));        
     });
 });
 
@@ -111,7 +111,7 @@ app.post('/novo-filme', (req, res) => {
 
         var oldPath = files.image.path;                
         var extension = path.extname(files.image.name);
-        var newPath = path.join(__dirname,'/views/images/', fields.name + extension);        
+        var newPath = path.join(__dirname,'/client/images/', fields.name + extension);        
 
         var newMovie = new Movie({
             Name: fields.name,                   
@@ -139,7 +139,7 @@ app.post('/novo-filme', (req, res) => {
 });
 
 app.get('/not-found', (req, res) => {
-    res.sendFile(path.join(__dirname+'/views/front/error/error-page.html'));
+    res.sendFile(path.join(__dirname+'/client/front/error/error-page.html'));
 });
 
 app.use('/usuario', users);

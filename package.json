@@ -1,0 +1,35 @@
+{
+  "name": "movie-catalog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "firebase": "^8.6.7",
+    "formidable": "^1.2.2",
+    "mongoose": "^5.12.4",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felipesilva125/movie-catalog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/felipesilva125/movie-catalog/issues"
+  },
+  "homepage": "https://github.com/felipesilva125/movie-catalog#readme"
+}
