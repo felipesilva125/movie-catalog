@@ -1,0 +1,98 @@
+body {
+    margin: 0px;
+	padding: 0;
+	box-sizing: border-box;
+    background-color: #111A23;
+    overflow-x: hidden;
+}
+
+.center {    
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 1;	
+    background-color: #465E73;
+    padding: 3px;
+    height: 55px;
+    align-content: center;
+}
+
+.header-left {
+	float: left;
+    align-self: center;
+}
+
+.menu-header ul {    
+    position: inherit;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;    
+    display: flex;
+    align-items: center;
+}
+
+.menu-header li {
+    margin-top: 15px;
+    margin-left: 280px;
+    margin-right: -280px;
+}
+
+.menu-header li a:hover {
+    background-color: #274659;
+}
+
+.menu-header a {
+	color: white;
+	text-decoration: none;
+    padding: 18px 20px;    
+    text-align: center;
+    font-size: 25px;
+    font-family: 'Ropa Sans', sans-serif;
+}
+
+/**/
+
+.header-right {	
+	float: right;
+    align-self: center;
+}
+
+.search {    
+	display: inline-block;
+    background-color:#C8D9E8;
+    border: solid 1px;
+    border-radius: 15px;
+    width: 300px;
+    align-content: center;
+    margin-top: 10px;
+    margin-left: -280px;
+    margin-right: 280px;
+}
+
+.txtSearch {
+    font-family: 'Ropa Sans', sans-serif;
+    float:left;
+    background-color: transparent;
+    padding-left: 5px;
+    font-size: 18px;
+    border: none;
+    height: 32px;
+    width: 260px;
+}
+
+.txtSearch:focus {
+    border-color: none !important;
+	outline: 0;
+	box-shadow: none !important;
+}
+
+.btnSearch {
+    height: 28px; 
+    width: 28px;
+    align-self: center;
+    margin-top: 2.5px;
+}
+
+@media screen and (max-width: 768px) {
+	.menu-header{display: none;}
+}
