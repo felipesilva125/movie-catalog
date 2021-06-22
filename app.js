@@ -114,7 +114,7 @@ app.post('/novo-filme', (req, res) => {
 
         var oldPath = files.image.path;                
         var extension = path.extname(files.image.name);
-        var newPath = path.join(__dirname,'/client/images/', fields.name + extension);        
+        var newPath = path.join(__dirname,'/client/images/', fields.name + extension);
 
         var newMovie = new Movie({
             Name: fields.name,                   

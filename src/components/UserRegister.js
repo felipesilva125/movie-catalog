@@ -48,22 +48,22 @@ class UserRegister extends React.Component {
 
                     <form id="registerUser" onSubmit={this.handleSubmit}>
                         <div>
-                            <label for="name">Nome: </label>
+                            <label htmlFor="name">Nome: </label>
                             <input type="text" name="name" id="name" placeholder="Nome do usuário" required={true} onChange={this.handleInputChange}/><br/><br/>
                         </div>
                         
                         <div>
-                            <label for="email">E-mail: </label>
+                            <label htmlFor="email">E-mail: </label>
                             <input type="email" name="email" id="email" placeholder="E-mail" required={true} onChange={this.handleInputChange}/><br/><br/>
                         </div>
 
                         <div>
-                            <label for="password">Senha: </label>
+                            <label htmlFor="password">Senha: </label>
                             <input type="password" name="password" id="password" placeholder="Senha" required={true} onChange={this.handleInputChange}/><br/><br/>
                         </div>
 
                         <div>
-                            <label for="password2">Repita a Senha: </label>
+                            <label htmlFor="password2">Repita a Senha: </label>
                             <input type="password" name="password2" id="password2" placeholder="Repita a Senha" required={true} onChange={this.handleInputChange}/><br/><br/><br/>
                         </div>
 

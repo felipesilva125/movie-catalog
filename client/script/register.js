@@ -1,3 +1,4 @@
+
 function validateForm() {    
     
     var movieName = document.getElementById("movieName").value;
@@ -48,4 +49,6 @@ function getFileName() {
     fileName = document.getElementById('file-name');
     var name = input.value.replace(/^.*[\\\/]/, '')
     fileName.innerHTML = name;
+
+    console.log(input.value);
 }
