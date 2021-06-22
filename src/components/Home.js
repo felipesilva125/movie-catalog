@@ -1,17 +1,13 @@
-import '../style/App.css';
-import Header from './Header';
+import React from 'react'
+import '../style/style-home.css'
 
-function handleButton(){
-  alert("click");
-}
+class Home extends React.Component {
 
-function Home() {
-  return (
-    <div className="App">
-        <Header />               
-        <input type="button" value="Click Me!" onClick={handleButton} />      
-    </div>
-  );
+    render() {
+        return (
+            <h1 style={{marginTop: 100}}>PÁGINA INICIAL</h1>
+        );
+    }
 }
 
 export default Home;

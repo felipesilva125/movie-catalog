@@ -10,6 +10,9 @@ const fs = require('fs')
 const passport = require('passport');
 require('./server/config/auth')(passport);
 const session = require('express-session');
+const cors = require('cors')
+
+app.use(cors());
 
 //Sessão de usuário
 app.use(session({

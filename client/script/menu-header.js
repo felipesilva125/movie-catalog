@@ -83,10 +83,8 @@ function buildHeaderLeft(){
     if (user) {
         ul.appendChild(liRegister);
         ul.appendChild(liUser);    
-    }        
-
-    if (user)
         ul.appendChild(liLogoff);
+    }
 
     menuHeader.appendChild(ul);                
     headerLeft.appendChild(menuHeader);
