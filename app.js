@@ -4,7 +4,8 @@ const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
 require('./server/model/Movie')
-const users = require('./server/routes/user')
+const users = require('./server/routes/User')
+const movies = require('./server/routes/Movie')
 const Movie = mongoose.model("Movies");
 const fs = require('fs')
 const passport = require('passport');
@@ -146,6 +147,7 @@ app.get('/not-found', (req, res) => {
 });
 
 app.use('/usuario', users);
+app.use('/filme', movies);
 
 app.use(function (req, res, next) {
     res.status(404).redirect('/not-found');

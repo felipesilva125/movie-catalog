@@ -4,6 +4,7 @@ import Login from '../components/Login'
 import Home from '../components/Home'
 import UserRegister from '../components/UserRegister'
 import MovieRegister from '../components/MovieRegister'
+import ErrorPage from '../components/ErrorPage'
 
 export default () => {
 
@@ -24,6 +25,9 @@ export default () => {
             <Route exact path="/usuario/cadastrar">
                 <UserRegister />  
             </Route>
+
+            <Route path='*' exact={true} component={ErrorPage} /> 
+
         </Switch>
     );
 };

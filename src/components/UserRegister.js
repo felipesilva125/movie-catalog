@@ -1,3 +1,4 @@
+import { Redirect } from 'react-router-dom'
 import axios from 'axios';
 import React from 'react';
 import '../style/style-form.css'
@@ -9,7 +10,8 @@ class UserRegister extends React.Component {
             name: null,
             email: null,
             password: null,
-            password2: null            
+            password2: null,
+            redirect: false
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,8 +19,14 @@ class UserRegister extends React.Component {
     }    
     
     handleSubmit(event) {
-        event.preventDefault();        
+        event.preventDefault();  
+        
+        if (!this.validatePassword())
+            return;
+
         alert(JSON.stringify(this.state));
+
+        this.setState({redirect: true});
 
         /*axios.post('http://localhost:8082/usuario/novo', this.state).then((res) => {
             if (res.status == 200){
@@ -40,8 +48,25 @@ class UserRegister extends React.Component {
         });
     }
 
+    validatePassword(){
+        var password = this.state.password;
+        var password2 = this.state.password2;
+    
+        if (password != password2){
+            alert("As senhas não coincidem!");
+            return false;
+        }
+    
+        return true;
+    }
+
     render() { 
-        return (  
+
+        const redirect = this.state.redirect;
+        if (redirect)
+            return <Redirect to="/"/>
+
+        return (                        
             <section className="form">
                 <div className="form-div">
                     <h1 className="title">Cadastrar novo Usuário</h1>

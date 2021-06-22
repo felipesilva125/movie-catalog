@@ -1,10 +1,11 @@
+import api from '../services/api'
 import React from 'react'; 
 
 class MovieRegister extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {  
+        this.state = {
             name: null,
             category: null,
             releaseDate: null,
@@ -12,23 +13,34 @@ class MovieRegister extends React.Component {
             director: null,
             cast: null,
             duration: null,
-            trailer: null,
-            image: null,
-            synopsis: null,
-            fileName: null            
+            trailer: null,            
+            synopsis: null,            
+            file: null,            
+            fileName: null              
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleFile = this.handleFile.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);        
+        this.handleSubmit = this.handleSubmit.bind(this);   
     }
 
-    handleSubmit (event) {
-        event.preventDefault();
-        alert(JSON.stringify(this.state));
+    handleSubmit = event => {
+        event.preventDefault();               
+                    
+        const data = new FormData()
+        Object.keys(this.state).forEach(key => {            
+            data.append(key, this.state[key]);
+        }); 
+
+        api.post('filme/novo', data).then((res) => {
+            alert(res.data);
+        })
+        .catch((err) => {
+            alert(err.response.data);
+        })
     }
 
-    handleInputChange(event) {
+    handleInputChange = event => {
         const target = event.target;
         const name = target.name;
         const value = target.value;
@@ -38,22 +50,40 @@ class MovieRegister extends React.Component {
         });
     }
 
-    handleFile(event) {
-        const filePath = event.target.value;
-        const fileName = filePath.replace(/^.*[\\\/]/, '');        
+    handleFile = event => {
 
-        this.setState({
-            image: filePath,
+        if (!this.validateImageType(event))
+            return;
+
+        const file = event.target.files[0];
+        const fileName = file.name;        
+
+        this.setState({      
+            file: file,      
             fileName: fileName
-        });
+        });        
     }
 
-    render() { 
-        return (            
+    validateImageType = event => {
+        let file = event.target.files[0];
+        const types = ['image/png', 'image/jpeg', 'image/gif'];        
+
+        if (types.every(type => file.type !== type)) {
+            alert(`O formato ${file.type} não é um formato de imagem válido.`)
+            event.target.value = null;
+            return false;
+        }
+
+        return true;
+    }
+
+    render() {         
+        return (                        
             <section className="form">
                 <div className="form-div">
                     <h1 className="title">Cadastrar novo filme</h1>
-                    <form id="registerForm" action="/novo-filme" method="POST" encType="multipart/form-data" onSubmit={this.handleSubmit}>
+                    <form id="registerForm" encType="multipart/form-data" onSubmit={this.handleSubmit}>  
+                        
                         <div>
                             <label htmlFor="name">Nome do Filme: </label>
                             <input type="text" name="name" id="movieName" placeholder="Nome do Filme" required={true} onChange={this.handleInputChange}/><br/><br/>
@@ -92,22 +122,22 @@ class MovieRegister extends React.Component {
                         <div>
                             <label htmlFor="trailer">Link Trailer: </label>
                             <input type="text" name="trailer" id="trailer" placeholder="Link Trailler" required={true} onChange={this.handleInputChange}/><br/><br/>
-                        </div>
+                        </div>                      
 
                         <div className="input-wrapper">
                             <p>
                                 Enviar Imagem: <br/><br/>
                                 <label htmlFor="input-file">Carregar imagem</label>
-                                <input type="file" id="input-file" name="image" required={true} onChange={this.handleFile}/><br/><br/>
+                                <input type="file" id="input-file" name="image" onChange={this.handleFile}/><br/><br/>
                                 <span id="file-name">{this.state.fileName}</span>
                             </p><br/>
-                        </div>                
+                        </div>   
 
                         <div>
                             <label htmlFor="synopsis">Sinopse: </label>
                             <textarea name="synopsis" className="text" id="synopsis" required={true} rows="15" placeholder="Sinopse..." onChange={this.handleInputChange}>                                
                             </textarea><br/><br/>
-                        </div>
+                        </div>                                     
 
                         <div className="button-submit">
                             <input type="submit" value="Cadastrar"/>

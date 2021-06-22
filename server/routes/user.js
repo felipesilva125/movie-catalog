@@ -70,9 +70,7 @@ router.post('/login',
     })
 );
 
-router.get('/user', (req, res) => {   
-    console.log('aqui');
-    console.log(req.user);
+router.get('/user', (req, res) => {
     res.send(req.user);
 });
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import '../style/style-menu.css'
-import axios from 'axios'
+import api from '../services/api'
 
 class Header extends React.Component {       
     
@@ -13,12 +13,24 @@ class Header extends React.Component {
     
     componentDidMount() {
         
-        axios.get('http://localhost:8082/usuario/user').then((res) => {            
+        api.get('usuario/user').then((res) => {            
             this.setState({user: res.data});
         })
         .catch((error) => {
             alert(error);
         });
+    }
+
+    showMovieRegister(){
+        return (
+            <li><a href="/cadastro">Cadastrar Filme</a></li>
+        );
+    }
+
+    showUserRegister(){
+        return (
+            <li><a href="/usuario/cadastrar">Cadastrar Usuário</a></li>
+        );
     }
 
     render() {
@@ -30,9 +42,8 @@ class Header extends React.Component {
                             <ul>
                                 <li><a href="/">Início</a></li>
                                 <li><a href="/usuario/login">Login</a></li>
-                                <li><a href="/cadastro">Cadastrar Filme</a></li>
-                                <li><a href="/usuario/cadastrar">Cadastrar Usuário</a></li>
-                                <li>{this.state.user ? "abc" : null}</li>
+                                {this.showMovieRegister()}
+                                {this.showUserRegister()}                                
                             </ul>
                         </div>
                     </div>
