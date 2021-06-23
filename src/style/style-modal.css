@@ -1,0 +1,43 @@
+.modal {
+  text-align: center;
+  background-color: #465E73;
+  position: fixed;
+  width: 400px;
+  top: 30%;
+  right: 39%;
+  border-radius: 20px;
+  border: 2px solid #94b5e0;
+  display: block !important;
+}
+
+h1 {
+  font-size: 30px;
+  color: azure;
+}
+
+h2 {
+  font-size: 20px;
+  color: azure;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #274659;
+  
+  box-sizing: border-box;
+  border-radius: 8px;
+  cursor: pointer;
+  color: azure;
+  border: #465E73;
+  font-family: 'Ropa Sans', sans-serif;
+  font-size: 20px;
+}
+
+.button-modal {
+  padding: 10px 20px;
+}
+
+.button-modal button:hover {
+  background-color: #A3D3D9;
+  color: #326773;
+}
