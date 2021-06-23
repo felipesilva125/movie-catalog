@@ -1,5 +1,5 @@
 import { Redirect } from 'react-router-dom'
-import axios from 'axios';
+import api from '../services/api';
 import React from 'react';
 import '../style/style-form.css'
 
@@ -22,20 +22,15 @@ class UserRegister extends React.Component {
         event.preventDefault();  
         
         if (!this.validatePassword())
-            return;
+            return;        
 
-        alert(JSON.stringify(this.state));
-
-        this.setState({redirect: true});
-
-        /*axios.post('http://localhost:8082/usuario/novo', this.state).then((res) => {
-            if (res.status == 200){
-                alert("Usuário Criado com Sucesso!");
-            }
+        api.post('usuario/novo', this.state).then((res) => {
+            alert(res.data);
+            this.setState({redirect: true});
         })
         .catch((err) => {
-            alert(err);
-        });*/
+            alert(err.response.data);
+        });
     }
 
     handleInputChange(event) {

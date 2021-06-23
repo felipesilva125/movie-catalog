@@ -147,7 +147,7 @@ app.get('/not-found', (req, res) => {
 });
 
 app.use('/usuario', users);
-app.use('/filme', movies);
+app.use('/filmes', movies);
 
 app.use(function (req, res, next) {
     res.status(404).redirect('/not-found');

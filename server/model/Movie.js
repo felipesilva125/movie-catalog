@@ -51,6 +51,11 @@ const Movie = Schema({
         type: Number,
         required: true,
         default: 0
+    },
+    MediumRating: {
+        type: Number,
+        required: true,
+        default: 0
     }
 });
 

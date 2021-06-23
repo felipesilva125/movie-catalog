@@ -32,7 +32,7 @@ class MovieRegister extends React.Component {
             data.append(key, this.state[key]);
         }); 
 
-        api.post('filme/novo', data).then((res) => {
+        api.post('filmes/novo', data).then((res) => {
             alert(res.data);
         })
         .catch((err) => {
@@ -69,7 +69,7 @@ class MovieRegister extends React.Component {
         const types = ['image/png', 'image/jpeg', 'image/gif'];        
 
         if (types.every(type => file.type !== type)) {
-            alert(`O formato ${file.type} não é um formato de imagem válido.`)
+            alert(`O formato ${file.type} não é um formato de imagem válido.`);
             event.target.value = null;
             return false;
         }

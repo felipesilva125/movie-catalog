@@ -28,23 +28,34 @@ router.post('/valida', (req, res) => {
 
 router.post('/novo', (req, res) => {
 
-    const newUser = new User({
-        Name: req.body.name,
-        Email: req.body.email,
-        Password: req.body.password
-    });                       
+    User.findOne({Email: req.body.email}).lean().then((user) => 
+    {        
+        if (user) {                    
+            res.status(500).send("Usuário já existe!");
+        }
+        else {
 
-    //criptografa senha
-    bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.Password, salt, (error, hash) => {            
-            newUser.Password = hash;
-            newUser.save().then(() => {                
-                res.redirect("/");                
-            }).catch((error) => {
-                res.redirect("/usuario/cadastrar");
+            const newUser = new User({
+                Name: req.body.name,
+                Email: req.body.email,
+                Password: req.body.password
             });
-        });
-    });
+        
+            //criptografa senha
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(newUser.Password, salt, (error, hash) => {            
+                    newUser.Password = hash;
+                    newUser.save().then(() => {                
+                        res.status(200).send("Usuário cadastrado com sucesso!");
+                    }).catch((error) => {
+                        res.status(500).send(error);
+                    });
+                });
+            });
+        }
+    }).catch((error) => {
+        res.status(500).send(error);
+    });    
 });
 
 router.get('/login', (req, res) => {    

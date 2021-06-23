@@ -23,10 +23,7 @@ router.post('/novo', upload.single('file'), (req, res, next) => {
         if (movie) {
             res.status(500).send("Filme já existe!");
         }
-        else {
-            
-            let path = req.file.path;
-            path = './'+path.replace(/\\/g, "/").replace(/:/g,'').replace(/\*/g,'').replace(/\?/g,'').replace(/\"/g,'').replace(/</g,'').replace(/>/g,'').replace(/\|/g,'');
+        else {           
 
             var newMovie = new Movie({
                 Name: req.body.name,                   
@@ -38,9 +35,10 @@ router.post('/novo', upload.single('file'), (req, res, next) => {
                 Duration: req.body.duration,
                 Trailer: req.body.trailer,
                 Synopsis: req.body.synopsis,
-                ImagePath: path,
+                ImagePath: req.body.fileName,
                 TotalRating: 0,
-                RatingCount: 0
+                RatingCount: 0,
+                MediumRating: 0
             });            
 
             newMovie.save().then(() => {                            
@@ -49,6 +47,17 @@ router.post('/novo', upload.single('file'), (req, res, next) => {
                 res.status(500).send(error);
             });
         }
+    });    
+});
+
+router.get('/busca', (req, res) => {    
+    Movie.find().lean().then((movies) => {
+        if (movies){            
+            res.status(200).json(movies);            
+        }
+    })
+    .catch(err => {
+        res.status(500).send(err);
     });    
 });
 
