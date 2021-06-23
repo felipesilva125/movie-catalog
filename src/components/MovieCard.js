@@ -17,7 +17,7 @@ class MovieCard extends React.Component {
                 <h2 className="category-movie" id="category-movie">{movie.Category}</h2>
                 <h2 className="medium-rating" id="medium-rating">{movie.MediumRating}</h2>
                 <img id="icon-star" src={process.env.PUBLIC_URL + "/star1.png"}/>
-                <Link to={`/filme/detalhes?movie=${movie._id}`}>
+                <Link to={`/filme/detalhes/${movie._id}`}>
                     <input type="button" value="Ver Mais +"/>
                 </Link>
             </div>

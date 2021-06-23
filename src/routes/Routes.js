@@ -5,6 +5,7 @@ import Home from '../components/Home'
 import UserRegister from '../components/UserRegister'
 import MovieRegister from '../components/MovieRegister'
 import ErrorPage from '../components/ErrorPage'
+import MoviePage from '../components/MoviePage'
 
 export default () => {
 
@@ -24,6 +25,9 @@ export default () => {
 
             <Route exact path="/usuario/cadastrar">
                 <UserRegister />  
+            </Route>
+
+            <Route exact path="/filme/detalhes/:id" component={MoviePage}>
             </Route>
 
             <Route path='*' exact={true} component={ErrorPage} /> 

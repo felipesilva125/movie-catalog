@@ -61,4 +61,13 @@ router.get('/busca', (req, res) => {
     });    
 });
 
+router.get('/detalhes/:id', (req, res) => {                                                   
+
+    Movie.findById(req.params.id).lean().then((movie) => {
+        res.status(200).json(movie);
+    }).catch((err) => {
+        res.status(500).json(err);
+    });
+});
+
 module.exports = router;
