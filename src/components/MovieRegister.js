@@ -37,7 +37,7 @@ class MovieRegister extends React.Component {
             data.append(key, this.state[key]);
         });
 
-        api.post('filme/novo', data).then((res) => {
+        api.post('filmes/novo', data).then((res) => {
             this.showModal(event, 'Salvo!', res.data);
             this.clearForm();
         })
@@ -94,19 +94,19 @@ class MovieRegister extends React.Component {
         });
     };
 
-    clearForm(e) {
+    clearForm() {
         this.setState({
-            name: null,
-            category: null,
-            releaseDate: null,
-            producer: null,
-            director: null,
-            cast: null,
-            duration: null,
-            trailer: null,
-            synopsis: null,
-            file: null,
-            fileName: null
+            name: "",
+            category: "",
+            releaseDate: "",
+            producer: "",
+            director: "",
+            cast: "",
+            duration: "",
+            trailer: "",
+            synopsis: "",
+            file: "",
+            fileName: ""
         })
     }
 

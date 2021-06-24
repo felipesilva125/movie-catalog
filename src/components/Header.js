@@ -45,7 +45,7 @@ class Header extends React.Component {
                             <ul>
                                 <li><a href="/">Início</a></li>                                
                                 {isAuthenticated() ? <li><a href="/cadastro">Cadastrar Filme</a></li> : null}
-                                {isAuthenticated() ? <li><a href="/usuario/cadastrar">Cadastrar Usuário</a></li> : null}                                
+                                {isAuthenticated() ? <li><a href="/usuario/cadastrar">Cadastrar Usuário</a></li> : null}
                             </ul>
                         </div>
                     </div>

@@ -1,35 +1,42 @@
 import api from '../services/api';
 import React from 'react';
+import Modal from '../components/Modal';
 import '../style/style-form.css'
 
-class UserRegister extends React.Component { 
-    constructor(props){
+class UserRegister extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
             name: null,
             email: null,
             password: null,
             password2: null,
-            redirect: false
+            redirect: false,
+            show: false,
+            title: null,
+            message: null
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-    }    
-    
+    }
+
     handleSubmit(event) {
-        event.preventDefault();  
-        
+        event.preventDefault();
+
         if (!this.validatePassword())
-            return;        
+            return;
 
         api.post('usuario/novo', this.state).then((res) => {
-            alert(res.data);            
-            this.props.history.push("/");
+            this.showModal(event, "Salvo.", res.data);
+            this.clearForm();
         })
-        .catch((err) => {
-            alert(err.response.data);
-        });
+            .catch((err) => {
+                if (err.response)
+                    this.showModal(event, "Erro!", err.response.data);
+                else
+                    this.showModal(event, "Erro!", err);
+            });
     }
 
     handleInputChange(event) {
@@ -42,48 +49,66 @@ class UserRegister extends React.Component {
         });
     }
 
-    validatePassword(){
+    validatePassword(event) {
         var password = this.state.password;
         var password2 = this.state.password2;
-    
-        if (password != password2){
-            alert("As senhas não coincidem!");
+
+        if (password != password2) {
+            this.showModal(event, "Erro!", "As senhas não coincidem!");
             return false;
         }
-    
+
         return true;
+    }
+
+    showModal = (e, title, message) => {
+        this.setState({
+            show: !this.state.show,
+            title: title,
+            message: message
+        });
+    };
+
+    clearForm() {
+        this.setState({
+            name: "",
+            email: "",
+            password: "",
+            password2: ""
+        })
     }
 
     render() {
 
-        return (                        
+        return (
             <section className="form">
                 <div className="form-div">
+                    <Modal onClose={e => this.showModal(e, '', '')} show={this.state.show} title={this.state.title} message={this.state.message}></Modal>
                     <h1 className="title">Cadastrar novo Usuário</h1>
 
                     <form id="registerUser" onSubmit={this.handleSubmit}>
                         <div>
                             <label htmlFor="name">Nome: </label>
-                            <input type="text" name="name" id="name" placeholder="Nome do usuário" required={true} onChange={this.handleInputChange}/><br/><br/>
+                            <input type="text" name="name" value={this.state.name} id="name" placeholder="Nome do usuário" required={true} onChange={this.handleInputChange} /><br /><br />
                         </div>
-                        
+
                         <div>
                             <label htmlFor="email">E-mail: </label>
-                            <input type="email" name="email" id="email" placeholder="E-mail" required={true} onChange={this.handleInputChange}/><br/><br/>
+                            <input type="email" name="email" value={this.state.email} id="email" placeholder="E-mail" required={true} onChange={this.handleInputChange} /><br /><br />
                         </div>
 
                         <div>
                             <label htmlFor="password">Senha: </label>
-                            <input type="password" name="password" id="password" placeholder="Senha" required={true} onChange={this.handleInputChange}/><br/><br/>
+                            <input type="password" name="password" value={this.state.password} id="password" placeholder="Senha" required={true} onChange={this.handleInputChange} /><br /><br />
                         </div>
 
                         <div>
                             <label htmlFor="password2">Repita a Senha: </label>
-                            <input type="password" name="password2" id="password2" placeholder="Repita a Senha" required={true} onChange={this.handleInputChange}/><br/><br/><br/>
+                            <input type="password" name="password2" value={this.state.password2} id="password2" placeholder="Repita a Senha" required={true} onChange={this.handleInputChange} /><br /><br /><br />
                         </div>
 
                         <div className="button-submit">
-                            <input type="submit" value="Cadastrar"/>
+                            <input type="submit" value="Cadastrar" />
                         </div>
                     </form>
                 </div>
@@ -91,5 +116,5 @@ class UserRegister extends React.Component {
         );
     }
 }
- 
+
 export default UserRegister;
