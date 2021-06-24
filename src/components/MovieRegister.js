@@ -13,7 +13,7 @@ class MovieRegister extends React.Component {
             category: "Ação;Aventura",
             releaseDate: new Date(Date.now()).getFullYear(),
             file: null,
-            fileName: "",
+            fileName: null,
             show: false,
             title: "",
             message: ""

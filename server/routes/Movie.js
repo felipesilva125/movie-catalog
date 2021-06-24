@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/novo', upload.single('file'), (req, res, next) => {
+router.post('/novo', upload.single('file'), (req, res, next) => {    
     Movie.findOne({Name: req.body.name}).lean().then((movie) => 
     {        
         if (movie) {
@@ -28,7 +28,7 @@ router.post('/novo', upload.single('file'), (req, res, next) => {
                 TmdbID: req.body.tmdbId,                 
                 Category: req.body.category.split(";"),
                 ReleaseDate: req.body.releaseDate,
-                ImagePath: req.body.fileName,
+                ImagePath: req.file.filename,
                 TotalRating: 0,
                 RatingCount: 0,
                 MediumRating: 0

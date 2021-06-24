@@ -5,7 +5,7 @@ import '../style/style-movie.css'
 
 class MoviePage extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             movie: null
@@ -15,34 +15,26 @@ class MoviePage extends React.Component {
     componentWillMount() {
 
         const id = this.props.match.params.id;
-        
+
         if (!id)
             return;
 
-        api.get(`filmes/detalhes/${id}`).then(res => {            
+        api.get(`filmes/detalhes/${id}`).then(res => {
             let movie = res.data;
             /*this.setState({
                 movie: res.data
             });*/
 
-            /*tmdbApi.get('/337404').then((response) => {
-                console.log(response.data);
-            })
-            .catch((error) => {
-
-            });*/
-            //tmdbApi.get('/337404/credits')
-
             Promise.all([
-                tmdbApi.get('/337404'),
-                tmdbApi.get('/337404/credits')
-            ]).then(([a,b]) => {
+                tmdbApi.get(`/${movie.TmdbID}?language=pt-BR`),
+                tmdbApi.get(`/${movie.TmdbID}/credits`),
+                tmdbApi.get(`/${movie.TmdbID}/videos?language=pt-BR`)
+            ]).then(([a, b, c]) => {
                 const movieInfo = a.data;
                 const credits = b.data;
-                this.setMovieInfo(movie, movieInfo);
-                this.setCredits(movie, credits);
-                console.log(movieInfo);
-                console.log(credits);
+                const videos = c.data;
+                this.setMovieInfo(movie, movieInfo, videos);
+                this.setCredits(movie, credits);                
                 console.log(movie);
 
                 this.setState({
@@ -51,73 +43,90 @@ class MoviePage extends React.Component {
             }).catch(err => {
                 alert(err);
             })
-        })
-        .catch(err => {
+        }).catch(err => {
 
         });
     }
 
-    setCredits(movie, credits){
+    setCredits(movie, credits) {
         movie.Cast = credits.cast.map((item, i) => item.name);
+        movie.Director = credits.crew.find(el => el.job === "Director").name;
     }
 
-    setMovieInfo(movie, movieInfo){
-        
-
+    setMovieInfo(movie, movieInfo, videos) {
+        movie.Producer = movieInfo.production_companies[0].name;
+        movie.Synopsis = movieInfo.overview;
+        console.log(videos.results);
+        movie.Trailer = videos.results.find(el => el.type === "Trailer" && el.site === "YouTube")?.key;   
+        movie.TmdbRating = movieInfo.vote_average;     
     }
 
-    rateMovie(value){        
+    rateMovie(value) {
         const data = {
             id: this.state.movie._id,
             rating: value
         }
 
         api.post('filmes/avaliar', data).then((res) => {
-            localStorage.setItem('rating', value);            
+            localStorage.setItem('rating', value);
             window.location.reload()
-        })
-        .catch((err) => {
+        }).catch((err) => {
 
         });
     }
 
-    getVideoUrl(){
-        let videoUrl = this.state.movie?.Trailer;
-        let videoId = videoUrl?.substring(videoUrl.indexOf('/embed/') + 7, videoUrl.length);
-        return videoUrl + `?autoplay=1&mute=1&playlist=${videoId}&loop=1&controls=0"`;
-    }  
+    getVideoUrl() {
+        let videoId = this.state.movie?.Trailer;
+        return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playlist=${videoId}&loop=1&controls=0"`;
+    }
 
-    buildRating(){
-        let itemList=[];
-        let rating = localStorage.getItem('rating');        
+    buildRating() {
+        let itemList = [];
+        let rating = localStorage.getItem('rating');
 
-        for (let i = 1; i <= 5; i++){
+        for (let i = 1; i <= 5; i++) {
             let image = "/star0.png";
 
-            if (rating && rating >= i){                
+            if (rating && rating >= i) {
                 image = '/star1.png';
             }
 
-            itemList.push(<img key={i} src={process.env.PUBLIC_URL+image} onClick={() => this.rateMovie(i)}/>)
-        }        
+            itemList.push(<img key={i} src={process.env.PUBLIC_URL + image} onClick={() => this.rateMovie(i)} />)
+        }
 
         return itemList;
     }
-        
-    render() {                       
-        const movie = this.state.movie;
-        return (              
+
+    getCategory() {
+        let category;
+
+        const categories = this.state.movie?.Category;
+        if (categories) {
+            categories.forEach(el => {
+                if (!category)
+                    category = el;
+                else
+                    category = `${category} / ${el}`
+            })            
+        }
+
+        return category;
+    }
+
+    render() {
+        const movie = this.state.movie;        
+        return (
             <section className="movie-info" id="main-section">
-                <h1 style={{textAlign: 'center', fontSize: 3+'em'}}>{movie?.Name}</h1>
+                <h1 style={{ textAlign: 'center', fontSize: 3 + 'em' }}>{movie?.Name}</h1>
                 <div className="main-info">
                     <div className="movie-picture">
-                        <img src={process.env.PUBLIC_URL+'/'+movie?.ImagePath} itemProp="image" alt="Velozes e Furiosos 6"/>                
+                        <img src={process.env.PUBLIC_URL + '/' + movie?.ImagePath} itemProp="image" alt="Velozes e Furiosos 6" />
                     </div>
                     <div className="movie-content">
                         <h2>Ano de Estréia:</h2>
-                        <p>{movie ? new Date(movie.ReleaseDate)?.getFullYear() : null}</p>
+                        <p>{movie ? new Date(movie.ReleaseDate).getFullYear() : null}</p>
                         <h2>Categoria:</h2>
-                        <p>{movie?.Category}</p>
+                        <p>{this.getCategory()}</p>
                         <h2>Produtora:</h2>
                         <p>{movie?.Producer}</p>
                         <h2>Diretor:</h2>
@@ -125,7 +134,7 @@ class MoviePage extends React.Component {
                     </div>
                     <div className="movie-content">
                         <h2>Elenco:</h2>
-                            {movie?.Cast.slice(0, 8).map((item, i) => <p key={i}>{item}</p>)}
+                        {movie?.Cast.slice(0, 8).map((item, i) => <p key={i}>{item}</p>)}
                     </div>
                 </div>
                 <div className="main-info">
@@ -133,17 +142,28 @@ class MoviePage extends React.Component {
                         <h2>Sinopse:</h2>
                         <p>{movie?.Synopsis}</p>
                     </div>
-                    <div className="rating">
-                        <h2>Média:</h2>
-                        <div className="medium-rating-movie">
-                            <h1 id="medium-rating-movie" style={{fontSize: 3+'em', textAlign: 'center'}}>{movie?.MediumRating}</h1>
-                            <img src={process.env.PUBLIC_URL+"/star1.png"}/>
+                    <div style={{display: "inline-list-item"}}>
+                        <div style={{display: "inline-flex"}}>
+                            <div className="rating">
+                                <h2>Média:</h2>
+                                <div className="medium-rating-movie">
+                                    <h1 id="medium-rating-movie" style={{ fontSize: 3 + 'em', textAlign: 'center' }}>{movie?.MediumRating}</h1>
+                                    <img src={process.env.PUBLIC_URL + "/star1.png"} />
+                                </div>
+                            </div>
+                            <div className="rating">
+                                <h2>Avaliar:</h2>
+                                <div className="rate-movie">
+                                    {this.buildRating()}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="rating">
-                        <h2>Avaliar:</h2>
-                        <div className="rate-movie">
-                            {this.buildRating()}                   
+                        <div className="rating">
+                            <h2>TMDB:</h2>
+                            <div className="medium-rating-movie">
+                                <h1 style={{ fontSize: 3 + 'em', textAlign: 'center' }}>{movie?.TmdbRating}</h1>
+                                <img src={process.env.PUBLIC_URL + "/tmdb.png"} style={{width: 50+'px', height: 50+'px'}} />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -154,5 +174,5 @@ class MoviePage extends React.Component {
         );
     }
 }
- 
+
 export default MoviePage;
