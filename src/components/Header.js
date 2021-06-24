@@ -7,22 +7,11 @@ class Header extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            user: null,
+        this.state = {            
             searchTag: null
         };
 
         this.handleChange = this.handleChange.bind(this);
-    }
-
-    componentDidMount() {
-
-        api.get('usuario/user').then((res) => {
-            this.setState({ user: res.data });
-        })
-        .catch((error) => {
-            alert(error);
-        });
     }
 
     handleLogout() {

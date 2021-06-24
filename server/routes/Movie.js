@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+require('../model/Movie')
 const Movie = mongoose.model("Movies");
 const multer = require('multer');
 

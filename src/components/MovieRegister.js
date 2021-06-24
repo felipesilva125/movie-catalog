@@ -2,6 +2,7 @@ import api from '../services/api'
 import React from 'react';
 import Modal from '../components/Modal'
 import '../style/style-form.css';
+import { tmdbApi } from '../services/tmdbApi';
 
 class MovieRegister extends React.Component {
 
@@ -25,6 +26,9 @@ class MovieRegister extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
+
+        //tmdbApi.get
+
         const data = new FormData()
         Object.keys(this.state).forEach(key => {
             data.append(key, this.state[key]);
@@ -96,6 +100,14 @@ class MovieRegister extends React.Component {
         })
     }
 
+    buildTmdbQuery(){
+        const urlBase = "https://www.themoviedb.org/search?";
+        let movieName = this.state.name;
+        let params = new URLSearchParams();
+        params.append('query', movieName)        
+        return urlBase + params.toString();
+    }
+
     render() {
         return (
             <section className="form">
@@ -113,10 +125,10 @@ class MovieRegister extends React.Component {
                             <label htmlFor="tmdbId">TMDB ID: </label>
                             <input type="number" name="tmdbId" value={this.state.tmdbId} id="tmdbId" placeholder="TMDB ID" required={true} onChange={this.handleInputChange} />
                             <p className="obs">
-                                Obs.: Para obter o "TMDB ID" é necessário acessar o site:"
+                                Obs.: Para obter o "TMDB ID" é necessário acessar o site "
                                 <u>
-                                    <a href="https://www.themoviedb.org" target="_blank">https://www.themoviedb.org</a>
-                                </u>" escolher o filme que deseja cadastrar e no link de do filme escolhido terá o "id" para cadastro.
+                                    <a href={this.buildTmdbQuery()} target="_blank">https://www.themoviedb.org</a>
+                                </u>" para pesquisar pelo nome do filme. No link do filme escolhido terá o "id" para cadastro.
                             </p>
                         </div>
 

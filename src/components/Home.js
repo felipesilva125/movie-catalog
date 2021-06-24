@@ -38,6 +38,7 @@ class Home extends React.Component {
             });
         })
         .catch(err => {
+            console.log(err);
             if (err.response)
                 alert(err.response.data);
             else

@@ -30,13 +30,12 @@ class UserRegister extends React.Component {
         api.post('usuario/novo', this.state).then((res) => {
             this.showModal(event, "Salvo.", res.data);
             this.clearForm();
-        })
-            .catch((err) => {
-                if (err.response)
-                    this.showModal(event, "Erro!", err.response.data);
-                else
-                    this.showModal(event, "Erro!", err);
-            });
+        }).catch((err) => {
+            if (err.response)
+                this.showModal(event, "Erro!", err.response.data);
+            else
+                this.showModal(event, "Erro!", err);
+        });
     }
 
     handleInputChange(event) {
