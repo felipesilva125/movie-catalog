@@ -57,7 +57,11 @@ class MoviePage extends React.Component {
         movie.Producer = movieInfo.production_companies[0].name;
         movie.Synopsis = movieInfo.overview;
         console.log(videos.results);
-        movie.Trailer = videos.results.find(el => (el.type === "Trailer" || el.type === "Teaser") && el.site === "YouTube")?.key;
+        movie.Trailer = videos.results.find(el => el.type === "Trailer" && el.site === "YouTube")?.key;
+
+        if (!movie.Trailer)
+            movie.Trailer = videos.results.find(el => el.type === "Teaser" && el.site === "YouTube")?.key;
+
         movie.TmdbRating = movieInfo.vote_average;
     }
 
