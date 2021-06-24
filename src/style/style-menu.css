@@ -32,19 +32,34 @@ body {
 }
 
 .menu-header li {
-    margin-top: 15px;
-    margin-left: 280px;
-    margin-right: -280px;
+    margin-top: 6px;
 }
 
-.menu-header li a:hover {
+.menu-item-left img {
+    width: 25px;
+    height: 25px;
+    vertical-align: -15%;
+    margin-right: 7px;
+}
+
+.menu-item-left {
+    display: flex;
+    margin-top: 10px;
+    margin-left: 280px;
+    margin-right: -280px;
+    align-items: center;
+}
+
+.menu-item-left :hover {
     background-color: #274659;
 }
 
-.menu-header a {
+.menu-item-left a{
+    width: 25px;
+    height: 25px;
 	color: white;
 	text-decoration: none;
-    padding: 18px 20px;    
+    padding: 19px;
     text-align: center;
     font-size: 25px;
     font-family: 'Ropa Sans', sans-serif;
@@ -58,6 +73,34 @@ body {
     margin-left: -280px;
     margin-right: 280px;
     display: flex;
+}
+
+.menu-item-right img {
+    width: 25px;
+    height: 25px;
+    vertical-align: -15%;
+    margin-right: 7px;
+}
+
+.menu-item-right {
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.menu-item-right :hover {
+    background-color: #274659;
+}
+
+.menu-item-right a{
+    width: 25px;
+    height: 25px;
+	color: white;
+	text-decoration: none;
+    padding: 19px;
+    text-align: center;
+    font-size: 25px;
+    font-family: 'Ropa Sans', sans-serif;
 }
 
 .search {    

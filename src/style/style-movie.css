@@ -132,3 +132,8 @@
 	color: white;
 	text-decoration: none;
 }
+
+.main-info h1 {
+	font-size: 25px;
+	text-align: center;
+}

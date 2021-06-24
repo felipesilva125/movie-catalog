@@ -78,7 +78,7 @@ class UserRegister extends React.Component {
     }
 
     render() {
-
+        document.title = "Cadastro de Usuários";
         return (
             <section className="form">
                 <div className="form-div">

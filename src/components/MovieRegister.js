@@ -124,6 +124,7 @@ class MovieRegister extends React.Component {
     }
 
     render() {
+        document.title = "Cadastro de Filmes";
         return (
             <section className="form">
                 <div className="form-div">

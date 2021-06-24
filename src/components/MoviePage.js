@@ -139,6 +139,7 @@ class MoviePage extends React.Component {
 
     render() {
         const movie = this.state.movie;
+        document.title = movie?.Name;
         return (
             <section className="movie-info" id="main-section">
                 <Modal onClose={e => this.showModal(e, '', '')} show={this.state.show} title={this.state.title} message={this.state.message}></Modal>
@@ -167,13 +168,15 @@ class MoviePage extends React.Component {
                         <h2>Sinopse:</h2>
                         <p>{movie?.Synopsis}</p>
                     </div>
+
                     <div style={{ display: "inline-list-item" }}>
+                        <h1>Avaliações:</h1>
                         <div style={{ display: "inline-flex" }}>
                             <div className="rating">
                                 <h2>Média:</h2>
                                 <div className="medium-rating-movie">
                                     <h1 id="medium-rating-movie" style={{ fontSize: 3 + 'em', textAlign: 'center' }}>{movie?.MediumRating}</h1>
-                                    <img src={process.env.PUBLIC_URL + "/star1.png"} />
+                                    <img src={process.env.PUBLIC_URL + "/star1.png"} style={{ width: 50 + 'px', height: 50 + 'px' }}/>
                                 </div>
                             </div>
                             <div className="rating">
