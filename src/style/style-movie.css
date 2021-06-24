@@ -114,3 +114,21 @@
 	top: 0;	
 	border-radius: 20px;
 }
+
+.obs {
+	color: white;
+}
+
+.obs a {
+	text-decoration: none;
+}
+
+.obs a:active {
+	color: white;
+	text-decoration: none;
+}
+
+.obs a:visited {
+	color: white;
+	text-decoration: none;
+}

@@ -103,8 +103,8 @@ class UserRegister extends React.Component {
                         </div>
 
                         <div>
-                            <label htmlFor="password2">Repita a Senha: </label>
-                            <input type="password" name="password2" value={this.state.password2} id="password2" placeholder="Repita a Senha" required={true} onChange={this.handleInputChange} /><br /><br /><br />
+                            <label htmlFor="password2">Confirme a Senha: </label>
+                            <input type="password" name="password2" value={this.state.password2} id="password2" placeholder="Confirme a Senha" required={true} onChange={this.handleInputChange} /><br /><br /><br />
                         </div>
 
                         <div className="button-submit">

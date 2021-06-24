@@ -1,4 +1,5 @@
 import React from 'react';
+import '../style/style-menu.css'
 
 export const Search = (props) => {
 

@@ -24,7 +24,7 @@ class MovieRegister extends React.Component {
     }
 
     handleSubmit = event => {
-        event.preventDefault();        
+        event.preventDefault();
         const data = new FormData()
         Object.keys(this.state).forEach(key => {
             data.append(key, this.state[key]);
@@ -34,7 +34,7 @@ class MovieRegister extends React.Component {
             this.showModal(event, 'Salvo!', res.data);
             this.clearForm();
         })
-            .catch((err) => {            
+            .catch((err) => {
                 if (err.response)
                     this.showModal(event, 'Erro!', err.response.data);
                 else
@@ -111,7 +111,13 @@ class MovieRegister extends React.Component {
 
                         <div>
                             <label htmlFor="tmdbId">TMDB ID: </label>
-                            <input type="number" name="tmdbId" value={this.state.tmdbId} id="tmdbId" placeholder="TMDB ID" required={true} onChange={this.handleInputChange} /><br /><br />
+                            <input type="number" name="tmdbId" value={this.state.tmdbId} id="tmdbId" placeholder="TMDB ID" required={true} onChange={this.handleInputChange} />
+                            <p className="obs">
+                                Obs.: Para obter o "TMDB ID" é necessário acessar o site:"
+                                <u>
+                                    <a href="https://www.themoviedb.org" target="_blank">https://www.themoviedb.org</a>
+                                </u>" escolher o filme que deseja cadastrar e no link de do filme escolhido terá o "id" para cadastro.
+                            </p>
                         </div>
 
                         <div className="input-wrapper">
