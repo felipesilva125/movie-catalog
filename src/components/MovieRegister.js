@@ -8,30 +8,23 @@ class MovieRegister extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: null,
-            category: null,
-            releaseDate: null,
-            producer: null,
-            director: null,
-            cast: null,
-            duration: null,
-            trailer: null,
-            synopsis: null,
+            tmdbId: "",
+            name: "",
+            category: "Ação;Aventura",
+            releaseDate: new Date(Date.now()).getFullYear(),
             file: null,
-            fileName: null,
+            fileName: "",
             show: false,
-            title: null,
-            message: null
+            title: "",
+            message: ""
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit = event => {
-        event.preventDefault();
-
+        event.preventDefault();        
         const data = new FormData()
         Object.keys(this.state).forEach(key => {
             data.append(key, this.state[key]);
@@ -41,7 +34,7 @@ class MovieRegister extends React.Component {
             this.showModal(event, 'Salvo!', res.data);
             this.clearForm();
         })
-            .catch((err) => {
+            .catch((err) => {            
                 if (err.response)
                     this.showModal(event, 'Erro!', err.response.data);
                 else
@@ -96,15 +89,8 @@ class MovieRegister extends React.Component {
 
     clearForm() {
         this.setState({
+            tmdbId: "",
             name: "",
-            category: "",
-            releaseDate: "",
-            producer: "",
-            director: "",
-            cast: "",
-            duration: "",
-            trailer: "",
-            synopsis: "",
             file: "",
             fileName: ""
         })
@@ -124,38 +110,8 @@ class MovieRegister extends React.Component {
                         </div>
 
                         <div>
-                            <label htmlFor="category">Categoria: </label>
-                            <input type="text" name="category" value={this.state.category} id="category" placeholder="Categoria" required={true} onChange={this.handleInputChange} /><br /><br />
-                        </div>
-
-                        <div>
-                            <label htmlFor="releaseDate">Lançamento: </label>
-                            <input type="month" name="releaseDate" value={this.state.releaseDate} id="releaseDate" required={true} pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" onChange={this.handleInputChange} /><br /><br />
-                        </div>
-
-                        <div>
-                            <label htmlFor="producer">Produtora: </label>
-                            <input type="text" name="producer" value={this.state.producer} id="producer" placeholder="Produtora" required={true} onChange={this.handleInputChange} /><br /><br />
-                        </div>
-
-                        <div>
-                            <label htmlFor="director">Diretor: </label>
-                            <input type="text" name="director" value={this.state.director} id="director" placeholder="Diretor" required={true} onChange={this.handleInputChange} /><br /><br />
-                        </div>
-
-                        <div>
-                            <label htmlFor="cast">Elenco: </label>
-                            <input type="text" name="cast" value={this.state.cast} id="cast" placeholder="Elenco" required={true} onChange={this.handleInputChange} /><br /><br />
-                        </div>
-
-                        <div>
-                            <label htmlFor="duration">Duração (minutos): </label>
-                            <input type="number" name="duration" value={this.state.duration} id="duration" placeholder="Duração" required={true} onChange={this.handleInputChange} /><br /><br />
-                        </div>
-
-                        <div>
-                            <label htmlFor="trailer">Link Trailer: </label>
-                            <input type="text" name="trailer" value={this.state.trailer} id="trailer" placeholder="Link Trailler" required={true} onChange={this.handleInputChange} /><br /><br />
+                            <label htmlFor="tmdbId">TMDB ID: </label>
+                            <input type="number" name="tmdbId" value={this.state.tmdbId} id="tmdbId" placeholder="TMDB ID" required={true} onChange={this.handleInputChange} /><br /><br />
                         </div>
 
                         <div className="input-wrapper">
@@ -165,12 +121,6 @@ class MovieRegister extends React.Component {
                                 <input type="file" id="input-file" name="image" onChange={this.handleFile} /><br /><br />
                                 <span id="file-name">{this.state.fileName}</span>
                             </p><br />
-                        </div>
-
-                        <div>
-                            <label htmlFor="synopsis">Sinopse: </label>
-                            <textarea name="synopsis" className="text" value={this.state.synopsis} id="synopsis" required={true} rows="15" placeholder="Sinopse..." onChange={this.handleInputChange}>
-                            </textarea><br /><br />
                         </div>
 
                         <div className="button-submit">

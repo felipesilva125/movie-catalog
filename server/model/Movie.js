@@ -7,7 +7,7 @@ const Movie = Schema({
         required: true
     },
     Category: {
-        type: String,
+        type: Array,
         required: true
     },
     ReleaseDate: {

@@ -39,10 +39,10 @@ mongoose.connect("mongodb://localhost/movie-catalog", {
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use(express.static(__dirname + '/client'));
+app.use(express.static(__dirname + '/server/home'));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname+'/client/front/home/home.html'));
+    res.sendFile(path.join(__dirname+'/server/home/home.html'));
 });
 
 app.get('/cadastro', (req, res) => {

@@ -53,7 +53,7 @@ class Header extends React.Component {
                         <Search searchTag={this.state.searchTag} handleChange={this.handleChange}/>                        
                         <div className="menu-header">
                             <ul>
-                                {isAuthenticated() ? <li style={{marginLeft: 0}}><a href="" onClick={this.handleLogout}>Sair</a></li> : null}
+                                {isAuthenticated() ? <li style={{marginLeft: 5}}><a href="" onClick={this.handleLogout}>Sair</a></li> : null}
                                 {!isAuthenticated() ? <li style={{marginLeft: 0}}><a href="/usuario/login">Login</a></li> : null}
                             </ul>
                         </div>

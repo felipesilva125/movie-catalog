@@ -1,0 +1,12 @@
+body {
+    text-align: center;
+    margin: 0px;
+	padding: 0;
+	box-sizing: border-box;
+    background-color: white;
+    overflow-x: hidden;
+}
+
+.home {
+    margin: 50px;
+}
