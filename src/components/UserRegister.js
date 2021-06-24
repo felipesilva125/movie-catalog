@@ -1,4 +1,3 @@
-import { Redirect } from 'react-router-dom'
 import api from '../services/api';
 import React from 'react';
 import '../style/style-form.css'
@@ -25,8 +24,8 @@ class UserRegister extends React.Component {
             return;        
 
         api.post('usuario/novo', this.state).then((res) => {
-            alert(res.data);
-            this.setState({redirect: true});
+            alert(res.data);            
+            this.props.history.push("/");
         })
         .catch((err) => {
             alert(err.response.data);
@@ -55,11 +54,7 @@ class UserRegister extends React.Component {
         return true;
     }
 
-    render() { 
-
-        const redirect = this.state.redirect;
-        if (redirect)
-            return <Redirect to="/"/>
+    render() {
 
         return (                        
             <section className="form">

@@ -5,26 +5,7 @@ const mongoose = require('mongoose');
 require('../model/User')
 const User = mongoose.model("Users");
 const bcrypt = require('bcryptjs');
-const passport = require('passport');
-const fs = require('fs');
-
-router.get('/cadastrar', (req, res) => {    
-    res.sendFile(path.join(__dirname, '../../client/front/register/register-user.html'));
-});
-
-router.post('/valida', (req, res) => {    
-    User.findOne({Email: req.body.email}).lean().then((user) => 
-    {        
-        if (user) {                    
-            res.writeHead(500, {'Content-Type': 'text/html'});
-            res.end();
-        }
-        else {
-            res.writeHead(200, {'Content-Type': 'text/html'});
-            res.end();
-        }
-    });    
-});
+const jwt = require('jsonwebtoken');
 
 router.post('/novo', (req, res) => {
 
@@ -58,43 +39,25 @@ router.post('/novo', (req, res) => {
     });    
 });
 
-router.get('/login', (req, res) => {    
-    if (req.query.fail){        
-        res.writeHead(401, {
-            'Content-Type': 'text/html',
-            'error': "Usuário e/ou senha incorretos!"
-        });
-    }
-    else {
-        res.writeHead(200, {
-            'Content-Type': 'text/html'            
-        });
-    }
-
-    res.end(fs.readFileSync(path.join(__dirname, '../../client/front/login/login.html')));
-});
-
-router.post('/login', 
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/usuario/login?fail=true'
-    })
-);
-
-router.get('/user', (req, res) => {
-    res.send(req.user);
-});
-
-router.get('/teste', (req, res) => {
-    res.send({
-        teste: "abc",
-        teste2: "def"
+router.post('/login', (req, res) => {    
+    User.findOne({Email: req.body.email}).lean().then((user) => 
+    {
+        if (!user)
+            res.status(500).send("Usuário não cadastrado!");
+        else {
+            const auth = bcrypt.compareSync(req.body.password, user.Password);
+            if (auth) {
+                let id = user._id;
+                const token = jwt.sign({ id }, '12345', {
+                    expiresIn: 300
+                })                
+                res.status(200).json({ token: token });
+            }
+            else {
+                res.status(500).send("Senha inválida!");
+            }
+        }
     });
-});
-
-router.get('/logout', (req, res) => {        
-    req.logout();
-    res.redirect("/");
 });
 
 module.exports = router;

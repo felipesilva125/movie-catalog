@@ -1,56 +1,61 @@
 import React from 'react'
 import '../style/style-menu.css'
 import api from '../services/api'
+import { isAuthenticated, logout } from '../services/auth';
+import { Search } from './Search';
+class Header extends React.Component {
 
-class Header extends React.Component {       
-    
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            user: null
+            user: null,
+            searchTag: null
         };
+
+        this.handleChange = this.handleChange.bind(this);
     }
-    
+
     componentDidMount() {
-        
-        api.get('usuario/user').then((res) => {            
-            this.setState({user: res.data});
+
+        api.get('usuario/user').then((res) => {
+            this.setState({ user: res.data });
         })
         .catch((error) => {
             alert(error);
         });
     }
 
-    showMovieRegister(){
-        return (
-            <li><a href="/cadastro">Cadastrar Filme</a></li>
-        );
+    handleLogout() {
+        logout();
     }
 
-    showUserRegister(){
-        return (
-            <li><a href="/usuario/cadastrar">Cadastrar Usuário</a></li>
-        );
-    }
+    handleChange = e => {
+        e.preventDefault();
+        this.setState({
+            searchTag: e.target.value
+        });
+    };
 
     render() {
-        return (      
+        return (
             <header>
                 <div className="center" id="menu">
                     <div className="header-left">
                         <div className="menu-header">
                             <ul>
-                                <li><a href="/">Início</a></li>
-                                <li><a href="/usuario/login">Login</a></li>
-                                {this.showMovieRegister()}
-                                {this.showUserRegister()}                                
+                                <li><a href="/">Início</a></li>                                
+                                {isAuthenticated() ? <li><a href="/cadastro">Cadastrar Filme</a></li> : null}
+                                {isAuthenticated() ? <li><a href="/usuario/cadastrar">Cadastrar Usuário</a></li> : null}                                
                             </ul>
                         </div>
                     </div>
                     <div className="header-right">
-                        <div className="search">
-                            <input id="searchName" className="txtSearch" type="text" placeholder="Pesquisar..."/>
-                            <img className="btnSearch" src="/search.png"/>
+                        <Search searchTag={this.state.searchTag} handleChange={this.handleChange}/>                        
+                        <div className="menu-header">
+                            <ul>
+                                {isAuthenticated() ? <li style={{marginLeft: 0}}><a href="" onClick={this.handleLogout}>Sair</a></li> : null}
+                                {!isAuthenticated() ? <li style={{marginLeft: 0}}><a href="/usuario/login">Login</a></li> : null}
+                            </ul>
                         </div>
                     </div>
                 </div>

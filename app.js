@@ -93,7 +93,7 @@ app.get('/filme/:id', (req, res) => {
     });
 });
 
-app.post('/filme/avaliar', (req, res) => {    
+app.post('/filme/avaliar', (req, res) => {
     Movie.findById(req.body.id).lean().then((movie) => {        
         let totalRating = movie.TotalRating + req.body.rating;
         let ratingCount = movie.RatingCount + 1;

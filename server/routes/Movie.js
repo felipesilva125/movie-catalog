@@ -70,4 +70,20 @@ router.get('/detalhes/:id', (req, res) => {
     });
 });
 
+router.post('/avaliar', (req, res) => {    
+    Movie.findById(req.body.id).lean().then((movie) => {        
+        let totalRating = movie.TotalRating + req.body.rating;
+        let ratingCount = movie.RatingCount + 1;
+        let mediumRating = Math.round(totalRating / ratingCount * 10) / 10;
+        
+        Movie.findByIdAndUpdate(req.body.id, { 
+            TotalRating: totalRating,
+            RatingCount: ratingCount,
+            MediumRating: mediumRating
+        }, { returnOriginal: false }).lean().then((movie) => {            
+            res.status(200).json(movie);
+        });        
+    });
+});
+
 module.exports = router;

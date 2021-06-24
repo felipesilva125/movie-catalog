@@ -1,7 +1,10 @@
 import React from 'react'
 import api from '../services/api';
 import '../style/style-home.css'
-import MovieGrid from './MovieGrid';
+import { MovieGrid } from './MovieGrid';
+
+const { search } = window.location;
+const query = new URLSearchParams(search).get('search');
 
 class Home extends React.Component {
 
@@ -14,16 +17,24 @@ class Home extends React.Component {
         }
 
         this.sortMovies = this.sortMovies.bind(this);
+    }    
+
+    filterMovies(movies, query){        
+        return movies.filter(el => el.Name.toUpperCase().includes(query.toUpperCase()));        
     }
 
-    componentDidMount() {
+    componentDidMount() {                    
 
         api.get("filmes/busca").then(res => {
-            const categories = this.getCategories(res.data);
+            let movies = res.data;
+            const categories = this.getCategories(movies);            
+            if (query)
+                movies = this.filterMovies(movies, query);
+
             this.setState({
-                movies: res.data,
+                movies: movies,
                 categories: categories,
-                dataBaseMovies: res.data
+                dataBaseMovies: movies
             });
         })
         .catch(err => {
@@ -105,7 +116,7 @@ class Home extends React.Component {
         return array;
     }
 
-    render() {                
+    render() {
         return (
             <section>
                 <section className="order">
@@ -123,7 +134,7 @@ class Home extends React.Component {
                     <input className="order-button" type="button" value="Por Ano" onClick={() => this.sortMovies('ReleaseDate', 'desc')}/>
                 </section>
 
-                <MovieGrid movies={this.state.movies}/>
+                <MovieGrid movies={this.state.movies} title={query ? "Resultados de Busca:" : "Filmes:"}/>
             </section>
         );
     }

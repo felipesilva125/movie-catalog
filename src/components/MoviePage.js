@@ -24,28 +24,56 @@ class MoviePage extends React.Component {
         });
     }
 
-    rateMovie(i){
+    rateMovie(value){        
+        const data = {
+            id: this.state.movie._id,
+            rating: value
+        }
 
+        api.post('filmes/avaliar', data).then((res) => {
+            localStorage.setItem('rating', value);            
+            window.location.reload()
+        })
+        .catch((err) => {
+
+        });
     }
 
     getVideoUrl(){
         let videoUrl = this.state.movie?.Trailer;
         let videoId = videoUrl?.substring(videoUrl.indexOf('/embed/') + 7, videoUrl.length);
         return videoUrl + `?autoplay=1&mute=1&playlist=${videoId}&loop=1&controls=0"`;
+    }  
+
+    buildRating(){
+        let itemList=[];
+        let rating = localStorage.getItem('rating');        
+
+        for (let i = 1; i <= 5; i++){
+            let image = "/star0.png";
+
+            if (rating && rating >= i){                
+                image = '/star1.png';
+            }
+
+            itemList.push(<img key={i} src={process.env.PUBLIC_URL+image} onClick={() => this.rateMovie(i)}/>)
+        }        
+
+        return itemList;
     }
         
-    render() {        
+    render() {                       
         const movie = this.state.movie;
         return (              
             <section className="movie-info" id="main-section">
                 <h1 style={{textAlign: 'center', fontSize: 3+'em'}}>{movie?.Name}</h1>
                 <div className="main-info">
                     <div className="movie-picture">
-                    <img src={process.env.PUBLIC_URL+'/'+movie?.ImagePath} itemProp="image" alt="Velozes e Furiosos 6"/>                
+                        <img src={process.env.PUBLIC_URL+'/'+movie?.ImagePath} itemProp="image" alt="Velozes e Furiosos 6"/>                
                     </div>
                     <div className="movie-content">
                         <h2>Ano de Estréia:</h2>
-                        <p>{new Date(movie?.ReleaseDate).getFullYear()}</p>
+                        <p>{movie ? new Date(movie.ReleaseDate)?.getFullYear() : null}</p>
                         <h2>Categoria:</h2>
                         <p>{movie?.Category}</p>
                         <h2>Produtora:</h2>
@@ -55,7 +83,7 @@ class MoviePage extends React.Component {
                     </div>
                     <div className="movie-content">
                         <h2>Elenco:</h2>
-                            {movie?.Cast.slice(0, 10).map((item, i) => <p>{item}</p>)}
+                            {movie?.Cast.slice(0, 10).map((item, i) => <p key={i}>{item}</p>)}
                     </div>
                 </div>
                 <div className="main-info">
@@ -73,16 +101,12 @@ class MoviePage extends React.Component {
                     <div className="rating">
                         <h2>Avaliar:</h2>
                         <div className="rate-movie">
-                            <img src={process.env.PUBLIC_URL+"/star1.png"} onClick={this.rateMovie(1)}/>
-                            <img src={process.env.PUBLIC_URL+"/star1.png"} onClick={this.rateMovie(2)}/>
-                            <img src={process.env.PUBLIC_URL+"/star1.png"} onClick={this.rateMovie(3)}/>
-                            <img src={process.env.PUBLIC_URL+"/star1.png"} onClick={this.rateMovie(4)}/>
-                            <img src={process.env.PUBLIC_URL+"/star1.png"} onClick={this.rateMovie(5)}/>                    
+                            {this.buildRating()}                   
                         </div>
                     </div>
                 </div>
                 <div className="trailer">
-                    <iframe className="movie-trailer" src={this.getVideoUrl()} allowfullscreen="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                    <iframe className="movie-trailer" src={this.getVideoUrl()} allowFullScreen="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
                 </div>
             </section>
         );

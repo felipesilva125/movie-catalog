@@ -55,18 +55,20 @@ body {
 .header-right {	
 	float: right;
     align-self: center;
+    margin-left: -280px;
+    margin-right: 280px;
+    display: flex;
 }
 
 .search {    
-	display: inline-block;
+	display: flex;
     background-color:#C8D9E8;
     border: solid 1px;
     border-radius: 15px;
     width: 300px;
     align-content: center;
-    margin-top: 10px;
-    margin-left: -280px;
-    margin-right: 280px;
+    margin-top: 6px;    
+    height: 40px;
 }
 
 .txtSearch {
@@ -74,9 +76,10 @@ body {
     float:left;
     background-color: transparent;
     padding-left: 5px;
+    align-self: center;
     font-size: 18px;
     border: none;
-    height: 32px;
+    height: 30px;
     width: 260px;
 }
 
@@ -89,8 +92,13 @@ body {
 .btnSearch {
     height: 28px; 
     width: 28px;
-    align-self: center;
-    margin-top: 2.5px;
+    align-self: center;    
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.btnSearch:hover {
+    cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
