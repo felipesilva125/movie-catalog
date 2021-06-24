@@ -1,5 +1,6 @@
 import React from 'react';
 import api from '../services/api';
+import { tmdbApi } from '../services/tmdbApi';
 import '../style/style-movie.css'
 
 class MoviePage extends React.Component {
@@ -11,17 +12,58 @@ class MoviePage extends React.Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
 
         const id = this.props.match.params.id;
-        api.get(`filmes/detalhes/${id}`).then((res) => {            
-            this.setState({
+        
+        if (!id)
+            return;
+
+        api.get(`filmes/detalhes/${id}`).then(res => {            
+            let movie = res.data;
+            /*this.setState({
                 movie: res.data
-            });
+            });*/
+
+            /*tmdbApi.get('/337404').then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+
+            });*/
+            //tmdbApi.get('/337404/credits')
+
+            Promise.all([
+                tmdbApi.get('/337404'),
+                tmdbApi.get('/337404/credits')
+            ]).then(([a,b]) => {
+                const movieInfo = a.data;
+                const credits = b.data;
+                this.setMovieInfo(movie, movieInfo);
+                this.setCredits(movie, credits);
+                console.log(movieInfo);
+                console.log(credits);
+                console.log(movie);
+
+                this.setState({
+                    movie: movie
+                });
+            }).catch(err => {
+                alert(err);
+            })
         })
-        .catch((err) => {
+        .catch(err => {
 
         });
+    }
+
+    setCredits(movie, credits){
+        movie.Cast = credits.cast.map((item, i) => item.name);
+    }
+
+    setMovieInfo(movie, movieInfo){
+        
+
     }
 
     rateMovie(value){        
@@ -83,7 +125,7 @@ class MoviePage extends React.Component {
                     </div>
                     <div className="movie-content">
                         <h2>Elenco:</h2>
-                            {movie?.Cast.slice(0, 10).map((item, i) => <p key={i}>{item}</p>)}
+                            {movie?.Cast.slice(0, 8).map((item, i) => <p key={i}>{item}</p>)}
                     </div>
                 </div>
                 <div className="main-info">

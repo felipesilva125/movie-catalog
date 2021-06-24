@@ -9,7 +9,7 @@ export const Search = (props) => {
 
     return (
         <div className="search">
-            <input id="searchName" className="txtSearch" type="text" placeholder="Pesquisar..." value={props.searchTag} onChange={props.handleChange} onKeyUp={handleKey}/>                            
+            <input id="searchName" className="txtSearch" type="text" placeholder="Pesquisar..." value={props.searchTag ? props.searchTag : ""} onChange={props.handleChange} onKeyUp={handleKey}/>                            
             <a id="submit" href={props.searchTag ? `/?search=${props.searchTag}` : ""}>
                 <img className="btnSearch" src="/search.png" />
             </a>

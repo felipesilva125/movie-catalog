@@ -1,7 +1,10 @@
 import axios from "axios";
 
-export const apikey = "60c3b978d9fcf1b50be3480ad7cb025c";
+const token = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MGMzYjk3OGQ5ZmNmMWI1MGJlMzQ4MGFkN2NiMDI1YyIsInN1YiI6IjYwZDQ3N2U0YzM5MGM1MDA1ZDhjMmY3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QxxG9ECjpqjEVc_QCmF0VukmhnLw_8UPUum-922I-W4";
 
 export const tmdbApi = axios.create({
-    baseURL: "https://api.themoviedb.org/3/movie/"
+    baseURL: "http://api.themoviedb.org/3/movie/",
+    headers: {
+        Authorization: `Bearer ${token}`        
+    }    
 });

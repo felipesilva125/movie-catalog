@@ -3,7 +3,6 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Movie = mongoose.model("Movies");
 const multer = require('multer');
-const path = require('path');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb){

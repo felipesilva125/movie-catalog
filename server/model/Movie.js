@@ -13,31 +13,11 @@ const Movie = Schema({
     ReleaseDate: {
         type: Date,
         required: true
-    },    
-    Producer: {
-        type: String,
-        required: true
     },
-    Director: {
-        type: String,
-        required: true
-    },
-    Cast: {
-        type: Array,
-        required: true
-    },
-    Duration: {
+    TmdbID: {
         type: Number,
         required: true
-    },
-    Trailer: {
-        type: String,
-        required: true
-    },
-    Synopsis: {
-        type: String,
-        required: true
-    },
+    },    
     ImagePath: {
         type: String,
         required: true
