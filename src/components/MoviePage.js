@@ -1,5 +1,7 @@
 import React from 'react';
+import Modal from '../components/Modal'
 import api from '../services/api';
+import { isAuthenticated } from '../services/auth';
 import { tmdbApi } from '../services/tmdbApi';
 import '../style/style-movie.css'
 
@@ -8,7 +10,10 @@ class MoviePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            movie: null
+            movie: null,
+            show: false,
+            title: "",
+            message: ""
         };
     }
 
@@ -62,18 +67,32 @@ class MoviePage extends React.Component {
     }
 
     rateMovie(value) {
-        const data = {
-            id: this.state.movie._id,
-            rating: value
+        if (isAuthenticated()) {
+            const id = this.state.movie._id;
+            const data = {
+                id: id,
+                rating: value
+            }
+    
+            api.post('filmes/avaliar', data).then((res) => {
+                localStorage.setItem(id + '_rating', value);
+                window.location.reload()
+            }).catch((err) => {
+    
+            });
         }
-
-        api.post('filmes/avaliar', data).then((res) => {
-            localStorage.setItem('rating', value);
-            window.location.reload()
-        }).catch((err) => {
-
-        });
+        else {
+            this.showModal('Erro!', 'Sem usuário autenticado.');
+        }     
     }
+
+    showModal = (title, message) => {
+        this.setState({
+            show: !this.state.show,
+            title: title,
+            message: message
+        });
+    };
 
     getVideoUrl() {
         let videoId = this.state.movie?.Trailer;
@@ -82,7 +101,7 @@ class MoviePage extends React.Component {
 
     buildRating() {
         let itemList = [];
-        let rating = localStorage.getItem('rating');
+        let rating = localStorage.getItem(this.state.movie?._id + '_rating');
 
         for (let i = 1; i <= 5; i++) {
             let image = "/star0.png";
@@ -117,6 +136,7 @@ class MoviePage extends React.Component {
         const movie = this.state.movie;        
         return (
             <section className="movie-info" id="main-section">
+                <Modal onClose={e => this.showModal(e, '', '')} show={this.state.show} title={this.state.title} message={this.state.message}></Modal>
                 <h1 style={{ textAlign: 'center', fontSize: 3 + 'em' }}>{movie?.Name}</h1>
                 <div className="main-info">
                     <div className="movie-picture">
