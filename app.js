@@ -25,6 +25,10 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/server/home'));
 
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/server/home/home.html');
+});
+
 app.use('/usuario', users);
 app.use('/filmes', movies);
 
