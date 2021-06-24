@@ -5,6 +5,7 @@ import { isAuthenticated } from '../services/auth';
 import { tmdbApi } from '../services/tmdbApi';
 import '../style/style-movie.css'
 
+
 class MoviePage extends React.Component {
 
     constructor(props) {
@@ -26,10 +27,6 @@ class MoviePage extends React.Component {
 
         api.get(`filmes/detalhes/${id}`).then(res => {
             let movie = res.data;
-            /*this.setState({
-                movie: res.data
-            });*/
-
             Promise.all([
                 tmdbApi.get(`/${movie.TmdbID}?language=pt-BR`),
                 tmdbApi.get(`/${movie.TmdbID}/credits`),
@@ -39,9 +36,7 @@ class MoviePage extends React.Component {
                 const credits = b.data;
                 const videos = c.data;
                 this.setMovieInfo(movie, movieInfo, videos);
-                this.setCredits(movie, credits);                
-                console.log(movie);
-
+                this.setCredits(movie, credits);
                 this.setState({
                     movie: movie
                 });
@@ -49,7 +44,7 @@ class MoviePage extends React.Component {
                 alert(err);
             })
         }).catch(err => {
-
+            alert(err);
         });
     }
 
@@ -62,8 +57,8 @@ class MoviePage extends React.Component {
         movie.Producer = movieInfo.production_companies[0].name;
         movie.Synopsis = movieInfo.overview;
         console.log(videos.results);
-        movie.Trailer = videos.results.find(el => el.type === "Trailer" && el.site === "YouTube")?.key;   
-        movie.TmdbRating = movieInfo.vote_average;     
+        movie.Trailer = videos.results.find(el => (el.type === "Trailer" || el.type === "Teaser") && el.site === "YouTube")?.key;
+        movie.TmdbRating = movieInfo.vote_average;
     }
 
     rateMovie(value) {
@@ -73,17 +68,17 @@ class MoviePage extends React.Component {
                 id: id,
                 rating: value
             }
-    
+
             api.post('filmes/avaliar', data).then((res) => {
                 localStorage.setItem(id + '_rating', value);
                 window.location.reload()
             }).catch((err) => {
-    
+                this.showModal('Erro!', 'Erro ao tentar avaliar filme!');
             });
         }
         else {
             this.showModal('Erro!', 'Sem usuário autenticado.');
-        }     
+        }
     }
 
     showModal = (title, message) => {
@@ -126,21 +121,31 @@ class MoviePage extends React.Component {
                     category = el;
                 else
                     category = `${category} / ${el}`
-            })            
+            })
         }
 
         return category;
     }
 
+    getImagePath(movie) {
+        try {
+            const image = require('../images/' + movie?.ImagePath).default;
+            return image;
+        }
+        catch (error) {
+
+        }
+    }
+
     render() {
-        const movie = this.state.movie;        
+        const movie = this.state.movie;
         return (
             <section className="movie-info" id="main-section">
                 <Modal onClose={e => this.showModal(e, '', '')} show={this.state.show} title={this.state.title} message={this.state.message}></Modal>
                 <h1 style={{ textAlign: 'center', fontSize: 3 + 'em' }}>{movie?.Name}</h1>
                 <div className="main-info">
                     <div className="movie-picture">
-                        <img src={process.env.PUBLIC_URL + '/' + movie?.ImagePath} itemProp="image" alt="Velozes e Furiosos 6" />
+                        <img src={movie ? this.getImagePath(movie) : null} itemProp="image" alt="Velozes e Furiosos 6" />
                     </div>
                     <div className="movie-content">
                         <h2>Ano de Estréia:</h2>
@@ -162,8 +167,8 @@ class MoviePage extends React.Component {
                         <h2>Sinopse:</h2>
                         <p>{movie?.Synopsis}</p>
                     </div>
-                    <div style={{display: "inline-list-item"}}>
-                        <div style={{display: "inline-flex"}}>
+                    <div style={{ display: "inline-list-item" }}>
+                        <div style={{ display: "inline-flex" }}>
                             <div className="rating">
                                 <h2>Média:</h2>
                                 <div className="medium-rating-movie">
@@ -182,7 +187,7 @@ class MoviePage extends React.Component {
                             <h2>TMDB:</h2>
                             <div className="medium-rating-movie">
                                 <h1 style={{ fontSize: 3 + 'em', textAlign: 'center' }}>{movie?.TmdbRating}</h1>
-                                <img src={process.env.PUBLIC_URL + "/tmdb.png"} style={{width: 50+'px', height: 50+'px'}} />
+                                <img src={process.env.PUBLIC_URL + "/tmdb.png"} style={{ width: 50 + 'px', height: 50 + 'px' }} />
                             </div>
                         </div>
                     </div>

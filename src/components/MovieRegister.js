@@ -11,8 +11,8 @@ class MovieRegister extends React.Component {
         this.state = {
             tmdbId: "",
             name: "",
-            category: "Ação;Aventura",
-            releaseDate: new Date(Date.now()).getFullYear(),
+            categories: null,
+            releaseDate: null,
             file: null,
             fileName: null,
             show: false,
@@ -21,29 +21,42 @@ class MovieRegister extends React.Component {
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);        
     }
 
     handleSubmit = event => {
         event.preventDefault();
 
-        //tmdbApi.get
+        tmdbApi.get(`/${this.state.tmdbId}?language=pt-BR`).then(res => {
 
-        const data = new FormData()
-        Object.keys(this.state).forEach(key => {
-            data.append(key, this.state[key]);
-        });
+            const movieInfo = res.data;            
+            let categories = movieInfo.genres.map((item, i) => item.name);
+            let releaseDate = movieInfo.release_date;            
 
-        api.post('filmes/novo', data).then((res) => {
-            this.showModal(event, 'Salvo!', res.data);
-            this.clearForm();
-        })
-            .catch((err) => {
+            this.setState({
+                categories: categories,
+                releaseDate: releaseDate
+            });
+
+            const data = new FormData()
+            Object.keys(this.state).forEach(key => {
+                data.append(key, this.state[key]);
+            });
+
+            api.post('filmes/novo', data).then((res) => {
+                this.showModal('Salvo!', res.data);
+                this.clearForm();
+            }).catch((err) => {
                 if (err.response)
-                    this.showModal(event, 'Erro!', err.response.data);
+                    this.showModal('Erro!', err.response.data);
                 else
-                    this.showModal(event, 'Erro!', err);
-            })
+                    this.showModal('Erro!', err);
+            });
+
+        }).catch((err) => {
+            console.log(err);
+            this.showModal('Erro!', 'Erro ao acessar The Movie DataBase (TMDB)!');
+        });        
     }
 
     handleInputChange = event => {
@@ -83,7 +96,7 @@ class MovieRegister extends React.Component {
         return true;
     }
 
-    showModal = (e, title, message) => {
+    showModal = (title, message) => {
         this.setState({
             show: !this.state.show,
             title: title,
@@ -96,15 +109,17 @@ class MovieRegister extends React.Component {
             tmdbId: "",
             name: "",
             file: "",
-            fileName: ""
+            fileName: "",
+            categories: null,
+            releaseDate: null
         })
     }
 
-    buildTmdbQuery(){
+    buildTmdbQuery() {
         const urlBase = "https://www.themoviedb.org/search?";
         let movieName = this.state.name;
         let params = new URLSearchParams();
-        params.append('query', movieName)        
+        params.append('query', movieName)
         return urlBase + params.toString();
     }
 
@@ -112,7 +127,7 @@ class MovieRegister extends React.Component {
         return (
             <section className="form">
                 <div className="form-div">
-                    <Modal onClose={e => this.showModal(e, '', '')} show={this.state.show} title={this.state.title} message={this.state.message}></Modal>
+                    <Modal onClose={() => this.showModal('', '')} show={this.state.show} title={this.state.title} message={this.state.message}></Modal>
                     <h1 className="title">Cadastrar novo filme</h1>
                     <form id="registerForm" encType="multipart/form-data" onSubmit={this.handleSubmit}>
 

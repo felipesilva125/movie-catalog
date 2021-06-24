@@ -7,7 +7,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
-        cb(null, 'public')
+        cb(null, 'src/images')
     },
     filename: function(req, file, cb){
         cb(null, Date.now() + '-' + file.originalname)
@@ -27,7 +27,7 @@ router.post('/novo', upload.single('file'), (req, res, next) => {
             var newMovie = new Movie({
                 Name: req.body.name,  
                 TmdbID: req.body.tmdbId,                 
-                Category: req.body.category.split(";"),
+                Category: req.body.categories.split(","),
                 ReleaseDate: req.body.releaseDate,
                 ImagePath: req.file.filename,
                 TotalRating: 0,

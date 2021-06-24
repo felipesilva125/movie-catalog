@@ -61,9 +61,11 @@ class Home extends React.Component {
         let moviesToShow = [];
 
         movies.forEach((movie) => {
-            let movieCategory = movie.Category.toUpperCase();
-            if (movieCategory === category)
-                moviesToShow.push(movie);                
+            movie.Category.forEach(cat => {
+                let movieCategory = cat.toUpperCase();
+                if (movieCategory === category)
+                    moviesToShow.push(movie);
+            })            
         });        
         
         this.setState({
@@ -111,10 +113,17 @@ class Home extends React.Component {
     getCategories(movies) {
         let array = [ "" ];        
         const categories = movies.map(el => el.Category);
-        categories.filter(distinct).forEach(element => {
-            array.push(element);            
-        });                
-        return array;
+
+        categories.forEach(cat => {
+            cat.filter(distinct).forEach(element => {
+                array.push(element);            
+            });                
+        })        
+        return array.filter(distinct);
+    }
+
+    fillCategories() {        
+        return this.state.categories ? this.state.categories.map((item, i) => <option key={i} value={item}>{item}</option>) : null
     }
 
     render() {
@@ -124,13 +133,12 @@ class Home extends React.Component {
                     <div className="order-select-h2">
                         <h2>Filtrar Categoria:</h2>
                         <select className="order-select" id="category-filter" onChange={this.filterCategory}>
-                            {this.state.categories ? this.state.categories.map((item, i) => <option key={i} value={item}>{item}</option>) : null}                                                 
+                            {this.fillCategories()}                                                 
                         </select>
                     </div>
 
                     <h2>Filtros de ordenação:</h2>
-                    <input className="order-button" type="button" value="Por Nome" onClick={() => this.sortMovies('Name', 'asc')}/>
-                    <input className="order-button" type="button" value="Por Categoria" onClick={() => this.sortMovies('Category', 'asc')}/>
+                    <input className="order-button" type="button" value="Por Nome" onClick={() => this.sortMovies('Name', 'asc')}/>                    
                     <input className="order-button" type="button" value="Por Avaliação" onClick={() => this.sortMovies('MediumRating', 'desc')}/>
                     <input className="order-button" type="button" value="Por Ano" onClick={() => this.sortMovies('ReleaseDate', 'desc')}/>
                 </section>
