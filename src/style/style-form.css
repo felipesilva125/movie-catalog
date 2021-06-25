@@ -79,7 +79,6 @@ input[type=file] {
     color: #326773;
 }
 
-
 .login {
     position: absolute;
 	display: flex;
@@ -100,4 +99,34 @@ input[type=file] {
 .form-login {    
     font-family: 'Ropa Sans', sans-serif;    
     width: 80%;
+}
+
+.login-input {
+	display: flex;	
+    background-color: #C8D9E8;    
+    height: 37px;
+    border: 0px solid #ccc;
+    margin: 8px 0; 
+    margin-bottom: 30px;       
+    border-radius: 8px;
+    background-color: #C8D9E8;
+    font-family: 'Ropa Sans', sans-serif;
+    font-size: 16px;
+}
+
+.txtLogin:focus{
+    border-color: none !important;
+	outline: 0;
+	box-shadow: none !important;
+}
+
+.loginImg {
+    height: 28px;
+    width: 28px;
+    align-self: center;
+    margin-left: 10px;    
+}
+
+.form-login #submitLogin {
+    margin-top: 20px;
 }

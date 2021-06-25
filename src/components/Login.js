@@ -54,24 +54,30 @@ class Login extends React.Component {
         document.title = "Login";
         return (
             <section className="login">
-                <img src={process.env.PUBLIC_URL+'/user.png'} style={{marginBottom: 40 + 'px'}}/>
+                <img src={process.env.PUBLIC_URL + '/user.png'} style={{ marginBottom: 40 + 'px' }} />
                 <div className="form-login">
-                    <Modal onClose={e => this.showModal('', '')} show={this.state.show} title={this.state.title} message={this.state.message}></Modal>                                        
+                    <Modal onClose={e => this.showModal('', '')} show={this.state.show} title={this.state.title} message={this.state.message}></Modal>
                     <form id="login" onSubmit={this.handleLogin}>
                         <div>
                             <label htmlFor="email">E-mail: </label>
-                            <input type="email" name="email" id="email" placeholder="E-mail" required onChange={this.onChange} value={this.state.email} /><br /><br />
+                            <div className="login-input">
+                                <img className="loginImg" src="/email.png" />
+                                <input className="txtLogin" type="email" name="email" id="email" placeholder="E-mail" required onChange={this.onChange} value={this.state.email} /><br /><br />
+                            </div>
                         </div>
 
                         <div>
                             <label htmlFor="password">Senha: </label>
-                            <input type="password" name="password" id="password" placeholder="Senha" required onChange={this.onChange} value={this.state.password} /><br /><br /><br />
+                            <div className="login-input">
+                                <img className="loginImg" src="/password.png" />
+                                <input className="txtLogin" type="password" name="password" id="password" placeholder="Senha" required onChange={this.onChange} value={this.state.password} /><br /><br /><br />
+                            </div>
                         </div>
 
                         <div className="button-submit">
-                            <input type="submit" value="Login" />
+                            <input id="submitLogin" type="submit" value="Login" />
                         </div>
-                    </form>                    
+                    </form>
                 </div>
             </section>
         );

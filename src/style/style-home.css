@@ -186,7 +186,7 @@
 	font-weight: bold;
 }
 
-.order-button:focus{
+.order-button #email :focus{
 	border-color: none !important;
 	outline: 0;
 	box-shadow: none !important;
