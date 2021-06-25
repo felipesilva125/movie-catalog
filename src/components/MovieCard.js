@@ -21,7 +21,7 @@ export const MovieCard = (props) => {
 
     function getCategory(movie) {
         let category;
-        movie.Category.slice(0, 2).forEach(el => {
+        movie.Category.forEach(el => {
             if (category)
                 category = category + " / " + el;
             else
