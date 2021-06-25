@@ -9,39 +9,53 @@ export const MovieCard = (props) => {
         return new Date(movie.ReleaseDate).getFullYear();
     }
 
-    function getImagePath(movie) {                    
+    function getImagePath(movie) {
         try {
             const image = require('../images/' + movie?.ImagePath).default;
             return image;
         }
         catch (error) {
 
-        }        
+        }
     }
 
-    function getCategory(movie){
+    function getCategory(movie) {
         let category;
-        movie.Category.slice(0,2).forEach(el => {
+        movie.Category.slice(0, 2).forEach(el => {
             if (category)
                 category = category + " / " + el;
-            else 
+            else
                 category = el;
-        });       
+        });
 
         return category;
     }
 
     return (
         <div className="item-gallery">
-            <img src={getImagePath(movie)} className="img-gallery" />
-            <h2 className="title-gallery" id="name-movie">{movie.Name}</h2>
-            <h2 className="movie-date" id="movie-date">{formatDate(movie)}</h2>
-            <h2 className="category-movie" id="category-movie">{getCategory(movie)}</h2>
-            <h2 className="medium-rating" id="medium-rating">{movie.MediumRating}</h2>
-            <img id="icon-star" src={process.env.PUBLIC_URL + "/star1.png"} />
-            <Link to={`/filme/detalhes/${movie._id}`}>
-                <input type="button" value="Ver Mais +" />
-            </Link>
+            <div className="image-grid">
+                <img src={getImagePath(movie)} className="img-gallery" />
+            </div>
+            <div className="movie-data">
+                <div className="line-1">
+                    <h3 className="title-gallery" id="name-movie">{movie.Name}</h3>
+                </div>
+                <div className="line-2">
+                    <h3 className="category-movie" id="category-movie">{getCategory(movie)}</h3>                    
+                </div>
+                <div className="line-3">
+                    <h3 className="movie-date" id="movie-date">{formatDate(movie)}</h3>
+                </div>
+                <div className="line-4">
+                    <div id="rating">
+                        <h3 className="medium-rating">{movie.MediumRating}</h3>
+                        <img id="icon-star" src={process.env.PUBLIC_URL + "/star1.png"} />
+                    </div>
+                    <Link to={`/filme/detalhes/${movie._id}`}>
+                        <input type="button" value="Ver Mais +" />
+                    </Link>
+                </div>
+            </div>
         </div>
     );
 }

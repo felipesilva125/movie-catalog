@@ -78,3 +78,26 @@ input[type=file] {
     background-color: #A3D3D9;
     color: #326773;
 }
+
+
+.login {
+    position: absolute;
+	display: flex;
+	border-radius: 20px;
+	background-image: linear-gradient(#1d1d1da6 0px, rgb(39, 70, 89) 100%);
+	border: 2px solid #8191A6;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    margin-left: -300px;
+    height: 600px;
+    margin-top: -300px;
+    justify-content: center;    
+    align-items: center;
+    flex-direction: column;    
+}
+
+.form-login {    
+    font-family: 'Ropa Sans', sans-serif;    
+    width: 80%;
+}
