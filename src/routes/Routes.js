@@ -14,7 +14,7 @@ const Routes = () => (
             <Route exact path="/" component={Home}/>                   
             <AuthenticatedRoute exact path="/cadastro" component={MovieRegister} />
             <UnauthenticatedRoute exact path="/usuario/login" component={Login}/>                    
-            <AuthenticatedRoute exact path="/usuario/cadastrar" component={UserRegister}/>
+            <Route exact path="/usuario/cadastrar" component={UserRegister}/>
             <Route exact path="/filme/detalhes/:id" component={MoviePage}/>                                        
             <Route path='*' exact={true} component={ErrorPage}/>
         </Switch>    

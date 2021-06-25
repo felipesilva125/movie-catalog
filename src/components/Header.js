@@ -53,14 +53,13 @@ class Header extends React.Component {
                                             </a>
                                         </li> : null}
                                 </div>
-                                <div className="menu-item-left">
-                                    {isAuthenticated() ?
+                                <div className="menu-item-left">                                    
                                         <li>
                                             <a href="/usuario/cadastrar">
                                                 <img src={registerClient} />
                                                 Cadastrar Usuário
                                             </a>
-                                        </li> : null}
+                                        </li>
                                 </div>
                             </ul>
                         </div>
